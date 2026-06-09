@@ -1,0 +1,1562 @@
+# Source: webRelease
+# Owner: lxgw
+- id: lxgw-marker-gothic
+  family: LXGW Marker Gothic
+  language: zh-Hans
+  name: 霞鹜漫黑
+  tone: sans
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwMarkerGothic
+    version: v1.003
+    assetFiles:
+      - LxgwMarkerGothic-v1.003.zip
+- id: lxgw-neo-xihei
+  family: LXGW Neo XiHei
+  language: zh-Hans
+  name: 霞鹜新晰黑
+  tone: sans
+  license:
+    type: IPA
+    url: https://spdx.org/licenses/IPA.html
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwNeoXiHei
+    version: latest
+    assetFiles:
+      - LXGWNeoXiHeiPlus.ttf
+- id: lxgw-neo-zhisong
+  family: LXGW Neo ZhiSong
+  language: zh-Hans
+  name: 霞鹜新致宋
+  tone: serif
+  license:
+    type: IPA
+    url: https://spdx.org/licenses/IPA.html
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwNeoZhiSong
+    version: latest
+    assetFiles:
+      - LXGWNeoZhiSongPlus.ttf
+- id: lxgw-wenkai
+  family: LXGW WenKai
+  language: zh-Hans
+  name: 霞鹜文楷
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenKai
+    version: latest
+    files:
+      - path: LXGWWenKai-Light.ttf
+        family: LXGW WenKai
+        weight: 300
+        style: normal
+      - path: LXGWWenKai-Medium.ttf
+        family: LXGW WenKai
+        weight: 500
+        style: normal
+      - path: LXGWWenKai-Regular.ttf
+        family: LXGW WenKai
+        weight: 400
+        style: normal
+    assetFiles:
+      - LXGWWenKai-Light.ttf
+      - LXGWWenKai-Medium.ttf
+      - LXGWWenKai-Regular.ttf
+- id: lxgw-wenkai-gb
+  family: LXGW WenKai GB
+  language: zh-Hans
+  name: 霞鹜文楷 GB
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenkaiGB
+    version: latest
+    files:
+      - path: LXGWWenKaiGB-Light.ttf
+        family: LXGW WenKai GB
+        weight: 300
+        style: normal
+      - path: LXGWWenKaiGB-Medium.ttf
+        family: LXGW WenKai GB
+        weight: 500
+        style: normal
+      - path: LXGWWenKaiGB-Regular.ttf
+        family: LXGW WenKai GB
+        weight: 400
+        style: normal
+    assetFiles:
+      - LXGWWenKaiGB-Light.ttf
+      - LXGWWenKaiGB-Medium.ttf
+      - LXGWWenKaiGB-Regular.ttf
+- id: lxgw-wenkai-screen
+  family: LXGW WenKai Screen
+  language: zh-Hans
+  name: 霞鹜文楷屏幕阅读版
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenKai-Screen
+    version: latest
+    assetFiles:
+      - LXGWWenKaiScreen.ttf
+- id: lxgw-wenkai-tc
+  family: LXGW WenKai TC
+  language: zh-Hant
+  name: 霞鶩文楷 TC
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenkaiTC
+    version: latest
+    files:
+      - path: LXGWWenKaiTC-Light.ttf
+        family: LXGW WenKai TC
+        weight: 300
+        style: normal
+      - path: LXGWWenKaiTC-Medium.ttf
+        family: LXGW WenKai TC
+        weight: 500
+        style: normal
+      - path: LXGWWenKaiTC-Regular.ttf
+        family: LXGW WenKai TC
+        weight: 400
+        style: normal
+    assetFiles:
+      - LXGWWenKaiTC-Light.ttf
+      - LXGWWenKaiTC-Medium.ttf
+      - LXGWWenKaiTC-Regular.ttf
+- id: lxgw-xihei-cl
+  family: LXGW XiHei CL
+  language: zh-Hant
+  name: 霞鶩晰黑 CL
+  tone: sans
+  license:
+    type: IPA
+    url: https://spdx.org/licenses/IPA.html
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwXiHei
+    version: latest
+    assetFiles:
+      - LXGWXiHeiCL.ttf
+- id: lxgw-xihei-mn
+  family: LXGW XiHei MN
+  language: zh-Hant
+  name: 霞鶩晰黑 MN
+  tone: sans
+  license:
+    type: IPA
+    url: https://spdx.org/licenses/IPA.html
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwXiHei
+    version: latest
+    assetFiles:
+      - LXGWXiHeiMN.ttf
+- id: lxgw-zhenkai-gb
+  family: LXGW ZhenKai GB
+  language: zh-Hans
+  name: 霞鹜臻楷 GB
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwZhenKai
+    version: latest
+    assetFiles:
+      - LXGWZhenKaiGB-Regular.ttf
+- id: lxgw-zhisong-cl
+  family: LXGW ZhiSong CL
+  language: zh-Hant
+  name: 霞鶩緻宋 CL
+  tone: serif
+  license:
+    type: IPA
+    url: https://spdx.org/licenses/IPA.html
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwZhiSong
+    version: latest
+    assetFiles:
+      - LXGWZhiSongCL.ttf
+- id: lxgw-zhisong-mn
+  family: LXGW ZhiSong MN
+  language: zh-Hant
+  name: 霞鶩緻宋 MN
+  tone: serif
+  license:
+    type: IPA
+    url: https://spdx.org/licenses/IPA.html
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwZhiSong
+    version: latest
+    assetFiles:
+      - LXGWZhiSongMN.ttf
+- id: pengli-wenkai
+  family: Pengli WenKai
+  language: zh-Hant
+  name: 彭蠡文楷
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: Pengli
+    version: latest
+    assetFiles:
+      - PengliWenKai-Regular.ttf
+- id: xiaolai-font
+  family: Xiaolai Font
+  language: zh-Hans
+  name: 小赖字体
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: kose-font
+    version: latest
+    files:
+      - path: Xiaolai-Regular.ttf
+        family: Xiaolai Font
+        weight: 400
+        style: normal
+    assetFiles:
+      - Xiaolai-Regular.ttf
+- id: yozai-font
+  family: Yozai Font
+  language: zh-Hans
+  name: 悠哉字体
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: yozai-font
+    version: latest
+    files:
+      - path: Yozai-Light.ttf
+        family: Yozai Font
+        weight: 300
+        style: normal
+      - path: Yozai-Medium.ttf
+        family: Yozai Font
+        weight: 500
+        style: normal
+      - path: Yozai-Regular.ttf
+        family: Yozai Font
+        weight: 400
+        style: normal
+    assetFiles:
+      - Yozai-Light.ttf
+      - Yozai-Medium.ttf
+      - Yozai-Regular.ttf
+# Owner: TrionesType
+- id: zhuque-fangsong
+  family: Zhuque Fangsong
+  language: zh-Hans
+  name: 朱雀仿宋
+  tone: serif
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: TrionesType
+    repo: zhuque
+    version: v0.212
+    files:
+      - path: ZhuqueFangsong-Regular.ttf
+        family: Zhuque Fangsong
+        weight: 400
+        style: normal
+    assetFiles:
+      - ZhuqueFangsong-{version}.zip
+# Owner: Warren2060
+- id: chill-huo-fang-kai-f
+  family: ChillHuoFangKai_F
+  language: zh-Hans
+  name: 寒蝉活仿楷
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: Warren2060
+    repo: ChillMovableType
+    version: HuoFangKaiv1.00
+    assetFiles:
+      - ChillHuoFangKai_F.zip
+    files:
+      - path: ChillHuoFangKai_F_Regular.otf
+        family: ChillHuoFangKai_F
+        weight: 400
+        style: normal
+- id: chill-huo-fang-song
+  family: ChillHuoFangSong
+  language: zh-Hans
+  name: 寒蝉活仿宋
+  tone: serif
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: Warren2060
+    repo: ChillMovableType
+    version: HuoFangSongv0.100
+    assetFiles:
+      - ChillHuoFangSong.zip
+    files:
+      - path: ChillHuoFangSong_Regular.otf
+        family: ChillHuoFangSong
+        weight: 400
+        style: normal
+- id: chill-huo-gothic-f
+  family: ChillHuoGothic_F
+  language: zh-Hans
+  name: 寒蝉活黑体
+  tone: sans
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: Warren2060
+    repo: ChillMovableType
+    version: HuoGothicv0.100
+    assetFiles:
+      - ChillHuoGothic_F.zip
+    files:
+      - path: ChillHuoGothic_F/ChillHuoGothic_F_Bold.otf
+        family: ChillHuoGothic_F
+        weight: 700
+        style: normal
+- id: chill-huo-kai
+  family: ChillHuoKai
+  language: zh-Hans
+  name: 寒蝉活楷
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: Warren2060
+    repo: ChillMovableType
+    version: HuoKaiv1.000
+    assetFiles:
+      - ChillHuoKai.zip
+    files:
+      - path: ChillHuoKai_Regular.otf
+        family: ChillHuoKai
+        weight: 400
+        style: normal
+- id: chill-huo-song-f
+  family: ChillHuoSong_F
+  language: zh-Hans
+  name: 寒蝉活宋
+  tone: serif
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: Warren2060
+    repo: ChillMovableType
+    version: HuoSongv1.000
+    assetFiles:
+      - ChillHuoSong_F.zip
+    files:
+      - path: ChillHuoSong_F_Regular.otf
+        family: ChillHuoSong_F
+        weight: 400
+        style: normal
+      - path: ChillHuoSong_F_Bold.otf
+        family: ChillHuoSong_F
+        weight: 700
+        style: normal
+      - path: ChillHuoSong_F_ExBold.otf
+        family: ChillHuoSong_F
+        weight: 800
+        style: normal
+# Owner: yzdnn
+- id: ba-ding-shi-wei-ti-16
+  family: Ba Ding Shi Wei Ti 16
+  language: zh-Hans
+  name: 八丁饰尾体 16
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: BaDingShiWeiTi-16
+    version: latest
+    files:
+      - path: BaDingShiWeiTi-16.ttf
+        family: Ba Ding Shi Wei Ti 16
+        weight: 400
+        style: normal
+    assetFiles:
+      - BaDingShiWeiTi-16.ttf
+- id: chang-ban-dian-song-12
+  family: Chang Ban Dian Song 12
+  language: zh-Hans
+  name: 长坂点宋 12
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: ChangBanDianSong-12
+    version: latest
+    files:
+      - path: ChangBanDianSong-12.ttf
+        family: Chang Ban Dian Song 12
+        weight: 400
+        style: normal
+    assetFiles:
+      - ChangBanDianSong-12.ttf
+- id: chang-ban-dian-song-16-sc
+  family: Chang Ban Dian Song 16 SC
+  language: zh-Hans
+  name: 长坂点宋 16 简
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: ChangBanDianSong-16
+    version: latest
+    files:
+      - path: ChangBanDianSong-16-SC.ttf
+        family: Chang Ban Dian Song 16 SC
+        weight: 400
+        style: normal
+    assetFiles:
+      - ChangBanDianSong-16-SC.ttf
+- id: chang-ban-dian-song-16-tc
+  family: Chang Ban Dian Song 16 TC
+  language: zh-Hant
+  name: 長坂點宋 16 繁
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: ChangBanDianSong-16
+    version: latest
+    files:
+      - path: ChangBanDianSong-16-TC.ttf
+        family: Chang Ban Dian Song 16 TC
+        weight: 400
+        style: normal
+    assetFiles:
+      - ChangBanDianSong-16-TC.ttf
+- id: qiu-ye-yuan-ti-16
+  family: Qiu Ye Yuan Ti 16
+  language: zh-Hans
+  name: 秋叶圆体 16
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: QiuYeYuanTi-16
+    version: latest
+    files:
+      - path: QiuYeYuanTi-16.ttf
+        family: Qiu Ye Yuan Ti 16
+        weight: 400
+        style: normal
+    assetFiles:
+      - QiuYeYuanTi-16.ttf
+- id: ren-ou-fang-song-16
+  family: Ren Ou Fang Song 16
+  language: zh-Hans
+  name: 人偶仿宋 16
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: RenOuFangSong-16
+    version: latest
+    files:
+      - path: RenOuFangSong-16.ttf
+        family: Ren Ou Fang Song 16
+        weight: 400
+        style: normal
+    assetFiles:
+      - RenOuFangSong-16.ttf
+- id: zheng-ge-dian-hei-16
+  family: Zheng Ge Dian Hei 16
+  language: zh-Hans
+  name: 正格点黑 16
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: ZhengGeDianHei-16
+    version: latest
+    files:
+      - path: ZhengGeDianHei-16.ttf
+        family: Zheng Ge Dian Hei 16
+        weight: 400
+        style: normal
+    assetFiles:
+      - ZhengGeDianHei-16.ttf
+# Source: webUrl
+- id: fandol-fang
+  family: FandolFang
+  language: zh-Hans
+  name: Fandol 仿宋
+  tone: serif
+  license:
+    type: GPL-3.0-only WITH Font-exception-2.0
+    url: https://spdx.org/licenses/GPL-3.0-only%20WITH%20Font-exception-2.0.html
+  source:
+    type: webUrl
+    version: "0.3"
+    urls:
+      - url: https://mirrors.aliyun.com/CTAN/fonts/fandol/FandolFang-Regular.otf
+    files:
+      - path: FandolFang-Regular.otf
+        family: FandolFang
+        weight: 400
+        style: normal
+- id: fandol-hei
+  family: FandolHei
+  language: zh-Hans
+  name: Fandol 黑体
+  tone: sans
+  license:
+    type: GPL-3.0-only WITH Font-exception-2.0
+    url: https://spdx.org/licenses/GPL-3.0-only%20WITH%20Font-exception-2.0.html
+  source:
+    type: webUrl
+    version: "0.3"
+    urls:
+      - url: https://mirrors.aliyun.com/CTAN/fonts/fandol/FandolHei-Regular.otf
+      - url: https://mirrors.aliyun.com/CTAN/fonts/fandol/FandolHei-Bold.otf
+    files:
+      - path: FandolHei-Regular.otf
+        family: FandolHei
+        weight: 400
+        style: normal
+      - path: FandolHei-Bold.otf
+        family: FandolHei
+        weight: 700
+        style: normal
+- id: fandol-kai
+  family: FandolKai
+  language: zh-Hans
+  name: Fandol 楷体
+  tone: handwriting
+  license:
+    type: GPL-3.0-only WITH Font-exception-2.0
+    url: https://spdx.org/licenses/GPL-3.0-only%20WITH%20Font-exception-2.0.html
+  source:
+    type: webUrl
+    version: "0.3"
+    urls:
+      - url: https://mirrors.aliyun.com/CTAN/fonts/fandol/FandolKai-Regular.otf
+    files:
+      - path: FandolKai-Regular.otf
+        family: FandolKai
+        weight: 400
+        style: normal
+- id: fandol-song
+  family: FandolSong
+  language: zh-Hans
+  name: Fandol 宋体
+  tone: serif
+  license:
+    type: GPL-3.0-only WITH Font-exception-2.0
+    url: https://spdx.org/licenses/GPL-3.0-only%20WITH%20Font-exception-2.0.html
+  source:
+    type: webUrl
+    version: "0.3"
+    urls:
+      - url: https://mirrors.aliyun.com/CTAN/fonts/fandol/FandolSong-Regular.otf
+      - url: https://mirrors.aliyun.com/CTAN/fonts/fandol/FandolSong-Bold.otf
+    files:
+      - path: FandolSong-Regular.otf
+        family: FandolSong
+        weight: 400
+        style: normal
+      - path: FandolSong-Bold.otf
+        family: FandolSong
+        weight: 700
+        style: normal
+- id: huiwen-fangsong
+  family: Huiwen-Fangsong
+  language: zh-Hans
+  name: 汇文仿宋
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/12669052378
+  source:
+    type: webUrl
+    version: "1.001"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1hbNFM1brqVBeXLpzLTWBEduK9F_PqF_c
+        filename: huiwen-fangsong-v1.001.ttf
+    files:
+      - path: huiwen-fangsong-v1.001.ttf
+        family: Huiwen-Fangsong
+        weight: 500
+        style: normal
+- id: huiwen-hk-hei
+  family: Huiwen-HKHei
+  language: zh-Hans
+  name: 汇文港黑
+  tone: sans
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/12669052378
+  source:
+    type: webUrl
+    version: "1.001"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1Efou8NlY36QPtY-O_vTbuUSVvxUdLV9b
+        filename: huiwen-hk-hei-v1.001.ttf
+    files:
+      - path: huiwen-hk-hei-v1.001.ttf
+        family: Huiwen-HKHei
+        weight: 500
+        style: normal
+- id: huiwen-mincho-gbk
+  family: Huiwen-MinchoGBK
+  language: zh-Hans
+  name: 汇文明朝体 GBK
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/12669052378
+  source:
+    type: webUrl
+    version: "1.001"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1HPKMKtiGsgd768ZNDva2FFxCI5Qn9tdX
+        filename: huiwen-mincho-gbk-v1.001.ttf
+    files:
+      - path: huiwen-mincho-gbk-v1.001.ttf
+        family: Huiwen-MinchoGBK
+        weight: 500
+        style: normal
+- id: huiwen-zheng-kai
+  family: Huiwen-ZhengKai
+  language: zh-Hans
+  name: 汇文正楷
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/12669052378
+  source:
+    type: webUrl
+    version: "1.001"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1RwclKzZxo3Ap4k2E4-fZkvbYPu3lO-oA
+        filename: huiwen-zheng-kai-v1.001.ttf
+    files:
+      - path: huiwen-zheng-kai-v1.001.ttf
+        family: Huiwen-ZhengKai
+        weight: 500
+        style: normal
+- id: kinghwa-old-song
+  family: KingHwaOldSong
+  language: zh-Hant
+  name: 京華老宋体
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/1915922891633043436
+  source:
+    type: webUrl
+    version: "3.0"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1GQFB7eBLha-RjYINt5kUWDZpSx1-NUtD
+        filename: kinghwa-old-song-v3.0.ttf
+    files:
+      - path: kinghwa-old-song-v3.0.ttf
+        family: KingHwaOldSong
+        weight: 400
+        style: normal
+- id: kinghwa-old-song-gb
+  family: KingHwaOldSong-GB
+  language: zh-Hans
+  name: 京華老宋体-GB印通表字形
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/1915922891633043436
+  source:
+    type: webUrl
+    version: "3.0"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1fKiBn1VL-L_OmmZ9dyMbX7ERgy2TW65j
+        filename: kinghwa-old-song-gb-v3.0.ttf
+    files:
+      - path: kinghwa-old-song-gb-v3.0.ttf
+        family: KingHwaOldSong-GB
+        weight: 400
+        style: normal
+- id: kinghwa-old-song-gj
+  family: KingHwaOldSong-GJ
+  language: zh-Hans
+  name: 京華老宋体-GJ古籍表字形
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/1915922891633043436
+  source:
+    type: webUrl
+    version: "3.0"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1GRCxFbs6P1SyqZd3IUxuDNwYgrY9g4hQ
+        filename: kinghwa-old-song-gj-v3.0.ttf
+    files:
+      - path: kinghwa-old-song-gj-v3.0.ttf
+        family: KingHwaOldSong-GJ
+        weight: 400
+        style: normal
+- id: kinghwa-old-song-i-ming
+  family: KingHwaOldSong-I.Ming
+  language: zh-Hant
+  name: 京華老宋体-I.檢校表推薦形
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/1915922891633043436
+  source:
+    type: webUrl
+    version: "3.0"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=11Aj2oGrJnBlKBNQd2YLi_xcuKEPcaqjl
+        filename: kinghwa-old-song-i-ming-v3.0.ttf
+    files:
+      - path: kinghwa-old-song-i-ming-v3.0.ttf
+        family: KingHwaOldSong-I.Ming
+        weight: 400
+        style: normal
+- id: kinghwa-old-song-lt
+  family: KingHwaOldSong-LT
+  language: zh-Hant
+  name: 京華老宋体-LT原版鉛字字形
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/1915922891633043436
+  source:
+    type: webUrl
+    version: "3.0"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1slV42hbSUEyGZmMUaEOylfdiB9vqFJGD
+        filename: kinghwa-old-song-lt-v3.0.ttf
+    files:
+      - path: kinghwa-old-song-lt-v3.0.ttf
+        family: KingHwaOldSong-LT
+        weight: 400
+        style: normal
+- id: kinghwa-old-song-mn
+  family: KingHwaOldSong-MN
+  language: zh-Hans
+  name: 京華老宋体-MN折中印刷字形
+  tone: serif
+  license:
+    type: Custom
+    url: https://zhuanlan.zhihu.com/p/1915922891633043436
+  source:
+    type: webUrl
+    version: "3.0"
+    urls:
+      - url: https://drive.google.com/uc?export=download&id=1yiUvsTALO58Vb2ScuPWLqtXhyRfE-GRd
+        filename: kinghwa-old-song-mn-v3.0.ttf
+    files:
+      - path: kinghwa-old-song-mn-v3.0.ttf
+        family: KingHwaOldSong-MN
+        weight: 400
+        style: normal
+- id: tsanger-huaxin-ti
+  family: TsangerHuaXinTi
+  language: zh-Hans
+  name: 仓耳华新体
+  tone: display
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/396
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳华新体.ttf
+        filename: tsanger-huaxin-ti.ttf
+    files:
+      - path: tsanger-huaxin-ti.ttf
+        family: TsangerHuaXinTi
+        weight: 400
+        style: normal
+    insecureTls: true
+- id: tsanger-jinkai-01
+  family: Tsanger JinKai 01
+  language: zh-Hans
+  name: 仓耳今楷 01
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://www.tsanger.cn/product/4
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳今楷01-W01.ttf
+        filename: tsanger-jinkai-01-w01.ttf
+      - url: https://tsanger.cn/download/仓耳今楷01-W02.ttf
+        filename: tsanger-jinkai-01-w02.ttf
+      - url: https://tsanger.cn/download/仓耳今楷01-W03.ttf
+        filename: tsanger-jinkai-01-w03.ttf
+      - url: https://tsanger.cn/download/仓耳今楷01-W04.ttf
+        filename: tsanger-jinkai-01-w04.ttf
+      - url: https://tsanger.cn/download/仓耳今楷01-W05.ttf
+        filename: tsanger-jinkai-01-w05.ttf
+    files:
+      - path: tsanger-jinkai-01-w01.ttf
+        family: Tsanger JinKai 01
+        weight: 100
+        style: normal
+      - path: tsanger-jinkai-01-w02.ttf
+        family: Tsanger JinKai 01
+        weight: 200
+        style: normal
+      - path: tsanger-jinkai-01-w03.ttf
+        family: Tsanger JinKai 01
+        weight: 300
+        style: normal
+      - path: tsanger-jinkai-01-w04.ttf
+        family: Tsanger JinKai 01
+        weight: 400
+        style: normal
+      - path: tsanger-jinkai-01-w05.ttf
+        family: Tsanger JinKai 01
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-jinkai-02
+  family: Tsanger JinKai 02
+  language: zh-Hans
+  name: 仓耳今楷 02
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://www.tsanger.cn/product/14
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳今楷02-W01.ttf
+        filename: tsanger-jinkai-02-w01.ttf
+      - url: https://tsanger.cn/download/仓耳今楷02-W02.ttf
+        filename: tsanger-jinkai-02-w02.ttf
+      - url: https://tsanger.cn/download/仓耳今楷02-W03.ttf
+        filename: tsanger-jinkai-02-w03.ttf
+      - url: https://tsanger.cn/download/仓耳今楷02-W04.ttf
+        filename: tsanger-jinkai-02-w04.ttf
+      - url: https://tsanger.cn/download/仓耳今楷02-W05.ttf
+        filename: tsanger-jinkai-02-w05.ttf
+    files:
+      - path: tsanger-jinkai-02-w01.ttf
+        family: Tsanger JinKai 02
+        weight: 100
+        style: normal
+      - path: tsanger-jinkai-02-w02.ttf
+        family: Tsanger JinKai 02
+        weight: 200
+        style: normal
+      - path: tsanger-jinkai-02-w03.ttf
+        family: Tsanger JinKai 02
+        weight: 300
+        style: normal
+      - path: tsanger-jinkai-02-w04.ttf
+        family: Tsanger JinKai 02
+        weight: 400
+        style: normal
+      - path: tsanger-jinkai-02-w05.ttf
+        family: Tsanger JinKai 02
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-jinkai-03
+  family: Tsanger JinKai 03
+  language: zh-Hans
+  name: 仓耳今楷 03
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://www.tsanger.cn/product/35
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳今楷03-W01.ttf
+        filename: tsanger-jinkai-03-w01.ttf
+      - url: https://tsanger.cn/download/仓耳今楷03-W02.ttf
+        filename: tsanger-jinkai-03-w02.ttf
+      - url: https://tsanger.cn/download/仓耳今楷03-W03.ttf
+        filename: tsanger-jinkai-03-w03.ttf
+      - url: https://tsanger.cn/download/仓耳今楷03-W04.ttf
+        filename: tsanger-jinkai-03-w04.ttf
+      - url: https://tsanger.cn/download/仓耳今楷03-W05.ttf
+        filename: tsanger-jinkai-03-w05.ttf
+    files:
+      - path: tsanger-jinkai-03-w01.ttf
+        family: Tsanger JinKai 03
+        weight: 100
+        style: normal
+      - path: tsanger-jinkai-03-w02.ttf
+        family: Tsanger JinKai 03
+        weight: 200
+        style: normal
+      - path: tsanger-jinkai-03-w03.ttf
+        family: Tsanger JinKai 03
+        weight: 300
+        style: normal
+      - path: tsanger-jinkai-03-w04.ttf
+        family: Tsanger JinKai 03
+        weight: 400
+        style: normal
+      - path: tsanger-jinkai-03-w05.ttf
+        family: Tsanger JinKai 03
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-jinkai-04
+  family: Tsanger JinKai 04
+  language: zh-Hans
+  name: 仓耳今楷 04
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://www.tsanger.cn/product/40
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳今楷04-W01.ttf
+        filename: tsanger-jinkai-04-w01.ttf
+      - url: https://tsanger.cn/download/仓耳今楷04-W02.ttf
+        filename: tsanger-jinkai-04-w02.ttf
+      - url: https://tsanger.cn/download/仓耳今楷04-W03.ttf
+        filename: tsanger-jinkai-04-w03.ttf
+      - url: https://tsanger.cn/download/仓耳今楷04-W04.ttf
+        filename: tsanger-jinkai-04-w04.ttf
+      - url: https://tsanger.cn/download/仓耳今楷04-W05.ttf
+        filename: tsanger-jinkai-04-w05.ttf
+    files:
+      - path: tsanger-jinkai-04-w01.ttf
+        family: Tsanger JinKai 04
+        weight: 100
+        style: normal
+      - path: tsanger-jinkai-04-w02.ttf
+        family: Tsanger JinKai 04
+        weight: 200
+        style: normal
+      - path: tsanger-jinkai-04-w03.ttf
+        family: Tsanger JinKai 04
+        weight: 300
+        style: normal
+      - path: tsanger-jinkai-04-w04.ttf
+        family: Tsanger JinKai 04
+        weight: 400
+        style: normal
+      - path: tsanger-jinkai-04-w05.ttf
+        family: Tsanger JinKai 04
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-jinkai-05
+  family: Tsanger JinKai 05
+  language: zh-Hans
+  name: 仓耳今楷 05
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://www.tsanger.cn/product/45
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳今楷05-W01.ttf
+        filename: tsanger-jinkai-05-w01.ttf
+      - url: https://tsanger.cn/download/仓耳今楷05-W02.ttf
+        filename: tsanger-jinkai-05-w02.ttf
+      - url: https://tsanger.cn/download/仓耳今楷05-W03.ttf
+        filename: tsanger-jinkai-05-w03.ttf
+      - url: https://tsanger.cn/download/仓耳今楷05-W04.ttf
+        filename: tsanger-jinkai-05-w04.ttf
+      - url: https://tsanger.cn/download/仓耳今楷05-W05.ttf
+        filename: tsanger-jinkai-05-w05.ttf
+    files:
+      - path: tsanger-jinkai-05-w01.ttf
+        family: Tsanger JinKai 05
+        weight: 100
+        style: normal
+      - path: tsanger-jinkai-05-w02.ttf
+        family: Tsanger JinKai 05
+        weight: 200
+        style: normal
+      - path: tsanger-jinkai-05-w03.ttf
+        family: Tsanger JinKai 05
+        weight: 300
+        style: normal
+      - path: tsanger-jinkai-05-w04.ttf
+        family: Tsanger JinKai 05
+        weight: 400
+        style: normal
+      - path: tsanger-jinkai-05-w05.ttf
+        family: Tsanger JinKai 05
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-lankai
+  family: TsangerLanKai
+  language: zh-Hans
+  name: 仓耳兰楷
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://www.tsanger.cn/product/366
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳兰楷.ttf
+        filename: tsanger-lankai.ttf
+    files:
+      - path: tsanger-lankai.ttf
+        family: TsangerLanKai
+        weight: 400
+        style: normal
+    insecureTls: true
+- id: tsanger-mingkai
+  family: Tsanger MingKai
+  language: zh-Hans
+  name: 仓耳明楷
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/87
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳明楷W01.ttf
+        filename: tsanger-mingkai-w01.ttf
+      - url: https://tsanger.cn/download/仓耳明楷W02.ttf
+        filename: tsanger-mingkai-w02.ttf
+      - url: https://tsanger.cn/download/仓耳明楷W03.ttf
+        filename: tsanger-mingkai-w03.ttf
+      - url: https://tsanger.cn/download/仓耳明楷W04.ttf
+        filename: tsanger-mingkai-w04.ttf
+      - url: https://tsanger.cn/download/仓耳明楷W05.ttf
+        filename: tsanger-mingkai-w05.ttf
+    files:
+      - path: tsanger-mingkai-w01.ttf
+        family: Tsanger MingKai
+        weight: 100
+        style: normal
+      - path: tsanger-mingkai-w02.ttf
+        family: Tsanger MingKai
+        weight: 200
+        style: normal
+      - path: tsanger-mingkai-w03.ttf
+        family: Tsanger MingKai
+        weight: 300
+        style: normal
+      - path: tsanger-mingkai-w04.ttf
+        family: Tsanger MingKai
+        weight: 400
+        style: normal
+      - path: tsanger-mingkai-w05.ttf
+        family: Tsanger MingKai
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-xuansan-01
+  family: Tsanger XuanSan 01
+  language: zh-Hans
+  name: 仓耳玄三 01
+  tone: serif
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/15
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳玄三01-W01.ttf
+        filename: tsanger-xuansan-01-w01.ttf
+      - url: https://tsanger.cn/download/仓耳玄三01-W02.ttf
+        filename: tsanger-xuansan-01-w02.ttf
+      - url: https://tsanger.cn/download/仓耳玄三01-W03.ttf
+        filename: tsanger-xuansan-01-w03.ttf
+      - url: https://tsanger.cn/download/仓耳玄三01-W04.ttf
+        filename: tsanger-xuansan-01-w04.ttf
+      - url: https://tsanger.cn/download/仓耳玄三01-W05.ttf
+        filename: tsanger-xuansan-01-w05.ttf
+    files:
+      - path: tsanger-xuansan-01-w01.ttf
+        family: Tsanger XuanSan 01
+        weight: 100
+        style: normal
+      - path: tsanger-xuansan-01-w02.ttf
+        family: Tsanger XuanSan 01
+        weight: 200
+        style: normal
+      - path: tsanger-xuansan-01-w03.ttf
+        family: Tsanger XuanSan 01
+        weight: 300
+        style: normal
+      - path: tsanger-xuansan-01-w04.ttf
+        family: Tsanger XuanSan 01
+        weight: 400
+        style: normal
+      - path: tsanger-xuansan-01-w05.ttf
+        family: Tsanger XuanSan 01
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-xuansan-02
+  family: Tsanger XuanSan 02
+  language: zh-Hans
+  name: 仓耳玄三 02
+  tone: serif
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/170
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳玄三02-W01.ttf
+        filename: tsanger-xuansan-02-w01.ttf
+      - url: https://tsanger.cn/download/仓耳玄三02-W02.ttf
+        filename: tsanger-xuansan-02-w02.ttf
+      - url: https://tsanger.cn/download/仓耳玄三02-W03.ttf
+        filename: tsanger-xuansan-02-w03.ttf
+      - url: https://tsanger.cn/download/仓耳玄三02-W04.ttf
+        filename: tsanger-xuansan-02-w04.ttf
+      - url: https://tsanger.cn/download/仓耳玄三02-W05.ttf
+        filename: tsanger-xuansan-02-w05.ttf
+    files:
+      - path: tsanger-xuansan-02-w01.ttf
+        family: Tsanger XuanSan 02
+        weight: 100
+        style: normal
+      - path: tsanger-xuansan-02-w02.ttf
+        family: Tsanger XuanSan 02
+        weight: 200
+        style: normal
+      - path: tsanger-xuansan-02-w03.ttf
+        family: Tsanger XuanSan 02
+        weight: 300
+        style: normal
+      - path: tsanger-xuansan-02-w04.ttf
+        family: Tsanger XuanSan 02
+        weight: 400
+        style: normal
+      - path: tsanger-xuansan-02-w05.ttf
+        family: Tsanger XuanSan 02
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-xuansan-03
+  family: Tsanger XuanSan 03
+  language: zh-Hans
+  name: 仓耳玄三 03
+  tone: serif
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/175
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳玄三03-W01.ttf
+        filename: tsanger-xuansan-03-w01.ttf
+      - url: https://tsanger.cn/download/仓耳玄三03-W02.ttf
+        filename: tsanger-xuansan-03-w02.ttf
+      - url: https://tsanger.cn/download/仓耳玄三03-W03.ttf
+        filename: tsanger-xuansan-03-w03.ttf
+      - url: https://tsanger.cn/download/仓耳玄三03-W04.ttf
+        filename: tsanger-xuansan-03-w04.ttf
+      - url: https://tsanger.cn/download/仓耳玄三03-W05.ttf
+        filename: tsanger-xuansan-03-w05.ttf
+    files:
+      - path: tsanger-xuansan-03-w01.ttf
+        family: Tsanger XuanSan 03
+        weight: 100
+        style: normal
+      - path: tsanger-xuansan-03-w02.ttf
+        family: Tsanger XuanSan 03
+        weight: 200
+        style: normal
+      - path: tsanger-xuansan-03-w03.ttf
+        family: Tsanger XuanSan 03
+        weight: 300
+        style: normal
+      - path: tsanger-xuansan-03-w04.ttf
+        family: Tsanger XuanSan 03
+        weight: 400
+        style: normal
+      - path: tsanger-xuansan-03-w05.ttf
+        family: Tsanger XuanSan 03
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-xuansan-04
+  family: Tsanger XuanSan 04
+  language: zh-Hans
+  name: 仓耳玄三 04
+  tone: serif
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/179
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳玄三04-W01.ttf
+        filename: tsanger-xuansan-04-w01.ttf
+      - url: https://tsanger.cn/download/仓耳玄三04-W02.ttf
+        filename: tsanger-xuansan-04-w02.ttf
+      - url: https://tsanger.cn/download/仓耳玄三04-W03.ttf
+        filename: tsanger-xuansan-04-w03.ttf
+      - url: https://tsanger.cn/download/仓耳玄三04-W04.ttf
+        filename: tsanger-xuansan-04-w04.ttf
+      - url: https://tsanger.cn/download/仓耳玄三04-W05.ttf
+        filename: tsanger-xuansan-04-w05.ttf
+    files:
+      - path: tsanger-xuansan-04-w01.ttf
+        family: Tsanger XuanSan 04
+        weight: 100
+        style: normal
+      - path: tsanger-xuansan-04-w02.ttf
+        family: Tsanger XuanSan 04
+        weight: 200
+        style: normal
+      - path: tsanger-xuansan-04-w03.ttf
+        family: Tsanger XuanSan 04
+        weight: 300
+        style: normal
+      - path: tsanger-xuansan-04-w04.ttf
+        family: Tsanger XuanSan 04
+        weight: 400
+        style: normal
+      - path: tsanger-xuansan-04-w05.ttf
+        family: Tsanger XuanSan 04
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-xuansan-m
+  family: Tsanger XuanSan M
+  language: zh-Hans
+  name: 仓耳玄三 M
+  tone: serif
+  license:
+    type: Custom
+    url: https://www.tsanger.cn/product/184
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳玄三M-W01.ttf
+        filename: tsanger-xuansan-m-w01.ttf
+      - url: https://tsanger.cn/download/仓耳玄三M-W02.ttf
+        filename: tsanger-xuansan-m-w02.ttf
+      - url: https://tsanger.cn/download/仓耳玄三M-W03.ttf
+        filename: tsanger-xuansan-m-w03.ttf
+      - url: https://tsanger.cn/download/仓耳玄三M-W04.ttf
+        filename: tsanger-xuansan-m-w04.ttf
+      - url: https://tsanger.cn/download/仓耳玄三M-W05.ttf
+        filename: tsanger-xuansan-m-w05.ttf
+    files:
+      - path: tsanger-xuansan-m-w01.ttf
+        family: Tsanger XuanSan M
+        weight: 100
+        style: normal
+      - path: tsanger-xuansan-m-w02.ttf
+        family: Tsanger XuanSan M
+        weight: 200
+        style: normal
+      - path: tsanger-xuansan-m-w03.ttf
+        family: Tsanger XuanSan M
+        weight: 300
+        style: normal
+      - path: tsanger-xuansan-m-w04.ttf
+        family: Tsanger XuanSan M
+        weight: 400
+        style: normal
+      - path: tsanger-xuansan-m-w05.ttf
+        family: Tsanger XuanSan M
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-yukai
+  family: TsangerYuKai
+  language: zh-Hans
+  name: 仓耳玉楷
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/362
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳玉楷.ttf
+        filename: tsanger-yukai.ttf
+    files:
+      - path: tsanger-yukai.ttf
+        family: TsangerYuKai
+        weight: 400
+        style: normal
+    insecureTls: true
+- id: tsanger-yunhei
+  family: Tsanger YunHei
+  language: zh-Hans
+  name: 仓耳云黑
+  tone: sans
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/9
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳云黑-W01.ttf
+        filename: tsanger-yunhei-w01.ttf
+      - url: https://tsanger.cn/download/仓耳云黑-W02.ttf
+        filename: tsanger-yunhei-w02.ttf
+      - url: https://tsanger.cn/download/仓耳云黑-W03.ttf
+        filename: tsanger-yunhei-w03.ttf
+      - url: https://tsanger.cn/download/仓耳云黑-W04.ttf
+        filename: tsanger-yunhei-w04.ttf
+      - url: https://tsanger.cn/download/仓耳云黑-W05.ttf
+        filename: tsanger-yunhei-w05.ttf
+      - url: https://tsanger.cn/download/仓耳云黑-W06.ttf
+        filename: tsanger-yunhei-w06.ttf
+      - url: https://tsanger.cn/download/仓耳云黑-W07.ttf
+        filename: tsanger-yunhei-w07.ttf
+      - url: https://tsanger.cn/download/仓耳云黑-W08.ttf
+        filename: tsanger-yunhei-w08.ttf
+    files:
+      - path: tsanger-yunhei-w01.ttf
+        family: Tsanger YunHei
+        weight: 100
+        style: normal
+      - path: tsanger-yunhei-w02.ttf
+        family: Tsanger YunHei
+        weight: 200
+        style: normal
+      - path: tsanger-yunhei-w03.ttf
+        family: Tsanger YunHei
+        weight: 300
+        style: normal
+      - path: tsanger-yunhei-w04.ttf
+        family: Tsanger YunHei
+        weight: 400
+        style: normal
+      - path: tsanger-yunhei-w05.ttf
+        family: Tsanger YunHei
+        weight: 500
+        style: normal
+      - path: tsanger-yunhei-w06.ttf
+        family: Tsanger YunHei
+        weight: 600
+        style: normal
+      - path: tsanger-yunhei-w07.ttf
+        family: Tsanger YunHei
+        weight: 700
+        style: normal
+      - path: tsanger-yunhei-w08.ttf
+        family: Tsanger YunHei
+        weight: 800
+        style: normal
+    insecureTls: true
+- id: tsanger-yuyang
+  family: Tsanger YuYang
+  language: zh-Hans
+  name: 仓耳渔阳体
+  tone: display
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/196
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳渔阳体W01.ttf
+        filename: tsanger-yuyang-w01.ttf
+      - url: https://tsanger.cn/download/仓耳渔阳体W02.ttf
+        filename: tsanger-yuyang-w02.ttf
+      - url: https://tsanger.cn/download/仓耳渔阳体W03.ttf
+        filename: tsanger-yuyang-w03.ttf
+      - url: https://tsanger.cn/download/仓耳渔阳体W04.ttf
+        filename: tsanger-yuyang-w04.ttf
+      - url: https://tsanger.cn/download/仓耳渔阳体W05.ttf
+        filename: tsanger-yuyang-w05.ttf
+    files:
+      - path: tsanger-yuyang-w01.ttf
+        family: Tsanger YuYang
+        weight: 100
+        style: normal
+      - path: tsanger-yuyang-w02.ttf
+        family: Tsanger YuYang
+        weight: 200
+        style: normal
+      - path: tsanger-yuyang-w03.ttf
+        family: Tsanger YuYang
+        weight: 300
+        style: normal
+      - path: tsanger-yuyang-w04.ttf
+        family: Tsanger YuYang
+        weight: 400
+        style: normal
+      - path: tsanger-yuyang-w05.ttf
+        family: Tsanger YuYang
+        weight: 500
+        style: normal
+    insecureTls: true
+- id: tsanger-zhuangyuan-kai
+  family: TsangerZhuangYuanKai
+  language: zh-Hans
+  name: 仓耳状元楷
+  tone: handwriting
+  license:
+    type: Custom
+    url: https://tsanger.cn/product/391
+    commercialUse: paid
+  source:
+    type: webUrl
+    version: "1"
+    urls:
+      - url: https://tsanger.cn/download/仓耳状元楷.ttf
+        filename: tsanger-zhuangyuan-kai.ttf
+    files:
+      - path: tsanger-zhuangyuan-kai.ttf
+        family: TsangerZhuangYuanKai
+        weight: 400
+        style: normal
+    insecureTls: true
+- id: wqy-microhei
+  family: WenQuanYi Micro Hei
+  language: zh-Hans
+  name: 文泉驿微米黑
+  tone: sans
+  license:
+    type: Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0
+    url: https://spdx.org/licenses/Apache-2.0.html
+  source:
+    type: webUrl
+    version: 0.2.0-beta
+    urls:
+      - url: https://mirrors.aliyun.com/debian/pool/main/f/fonts-wqy-microhei/fonts-wqy-microhei_0.2.0-beta.orig.tar.gz
+        filename: fonts-wqy-microhei_0.2.0-beta.orig.tar.gz
+    files:
+      - path: wqy-microhei/wqy-microhei.ttc
+        fontNumber: 0
+        family: WenQuanYi Micro Hei
+        weight: 400
+        style: normal
+- id: wqy-zenhei
+  family: WenQuanYi Zen Hei
+  language: zh-Hans
+  name: 文泉驿正黑
+  tone: sans
+  license:
+    type: GPL-2.0-only WITH Font-exception-2.0
+    url: https://spdx.org/licenses/GPL-2.0-only.html
+  source:
+    type: webUrl
+    version: 0.9.45
+    urls:
+      - url: https://mirrors.aliyun.com/debian/pool/main/f/fonts-wqy-zenhei/fonts-wqy-zenhei_0.9.45.orig.tar.gz
+        filename: fonts-wqy-zenhei_0.9.45.orig.tar.gz
+    files:
+      - path: wqy-zenhei/wqy-zenhei.ttc
+        fontNumber: 0
+        family: WenQuanYi Zen Hei
+        weight: 500
+        style: normal

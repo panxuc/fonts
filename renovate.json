@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update pinned GitHub release font sources declared in fonts.catalog.yaml.",
+      "managerFilePatterns": ["/(^|/)fonts\\.catalog\\.yaml$/"],
+      "matchStrings": [
+        "type:\\s*githubRelease[\\s\\S]*?owner:\\s*(?<owner>[^\\s#]+)[\\s\\S]*?repo:\\s*(?<repo>[^\\s#]+)[\\s\\S]*?version:\\s*(?<currentValue>(?!latest\\b)[^\\s#]+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "{{{owner}}}/{{{repo}}}",
+      "versioningTemplate": "semver-coerced"
+    },
+    {
+      "customType": "regex",
+      "description": "Update custom pinned font source versions declared with renovate hints.",
+      "managerFilePatterns": ["/(^|/)fonts\\.catalog\\.yaml$/"],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+)\\s+packageName=(?<packageName>[^\\s]+)(?:\\s+versioning=(?<versioning>[^\\s]+))?\\s*\\n\\s*version:\\s*(?<currentValue>[^\\s#]+)"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}"
+    }
+  ]
+}

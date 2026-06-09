@@ -1,0 +1,205 @@
+/* Local fixes layered over gf.css (the stylesheet harvested from the live
+ * fonts.google.com app). Keep this file tiny: every rule here either bridges
+ * a gap left by Angular-runtime behavior or rewires a Google-internal asset.
+ */
+
+/* Icon subsets load via /css2?family=Google+Symbols&icon_names=... which
+ * registers the family as "Google Symbols"; the harvested CSS expects the
+ * runtime-registered alias. */
+.google-symbols-subset,
+mat-icon.google-symbols-subset {
+  font-family: "Google Symbols", "Google Symbols Subset Subset" !important;
+}
+
+/* React root wrapper should not affect layout. */
+#root {
+  display: contents;
+}
+
+.footer-brand-text {
+  color: var(--sys-on-surface);
+  font: var(--sys-title-large);
+  font-weight: 600;
+}
+
+.footer-mini-logo {
+  align-items: center;
+  background: color-mix(in srgb, var(--sys-primary) 12%, transparent);
+  border-radius: 8px;
+  color: var(--sys-primary);
+  display: inline-flex;
+  font: var(--sys-title-medium);
+  font-weight: 700;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+/* Angular's router-outlet is a zero-size marker element. */
+router-outlet {
+  display: none;
+}
+
+/* The harvested mat-sidenav styles rely on Angular runtime inline styles for
+ * open/close transitions; mirror the closed state. */
+mat-sidenav.mat-drawer-side {
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    visibility 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+mat-sidenav-content.mat-drawer-content {
+  transition: margin-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- Browse: guidance-cards carousel fix-ups. gf.css de-scoping lets a
+ * generic `.wrapper` rule (justify-content: center; gap: 8px) and the
+ * mobile `carousel__cols-3` flex-basis win over the original
+ * gf-carousel component rules; restore the live-site desktop values. --- */
+gf-guidance-cards .guidance-carousel .wrapper {
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 12px;
+}
+gf-guidance-cards .guidance-carousel .wrapper .carousel-item {
+  flex: 0 0 256px;
+}
+gf-guidance-cards gf-carousel {
+  display: block;
+  position: relative;
+}
+gf-guidance-cards .nav-button {
+  background: var(--sys-surface-container-high);
+  color: var(--sys-on-surface-variant);
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  top: calc(50% - 24px);
+  z-index: 20;
+}
+gf-guidance-cards .nav-button--left {
+  left: 8px;
+}
+gf-guidance-cards .nav-button--right {
+  right: 8px;
+}
+gf-guidance-cards .gradient--left {
+  left: 0;
+}
+
+/* --- Browse: gf-google-header fix-ups. The de-scoped gf.css lets a generic
+ * `.header` rule (display: flex) override the header host's display: block,
+ * shrinking the toolbar; and later `.callout`/`.callout__text` rules from
+ * other callout components override the shopping-bag callout placement.
+ * Restore the harvested per-component values, scoped. --- */
+gf-google-header.header {
+  display: block;
+  align-items: normal;
+  justify-content: normal;
+}
+.google-header-shopping-bag-callout .callout {
+  position: absolute;
+  bottom: -9px;
+  z-index: 10031;
+  width: auto;
+  padding: 0;
+  display: none;
+  opacity: 0;
+  transform: scale(0.8) translateY(-10px);
+}
+.google-header-shopping-bag-callout .callout--show {
+  display: block;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.google-header-shopping-bag-callout .callout__text {
+  position: absolute;
+  right: -46px;
+  top: -16px;
+  display: block;
+  max-width: none;
+  width: max-content;
+  padding: 16px;
+  white-space: nowrap;
+}
+.google-header-shopping-bag-callout .callout__text::after {
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent var(--sys-primary) transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  right: 12px;
+  top: -20px;
+  bottom: auto;
+}
+
+/* --- Selection empty state. These rules live in a lazily-loaded chunk on
+ * the live site that the harvest never captured; values transcribed from
+ * the browse-bag-open ground-truth screenshot. --- */
+gf-checkout-overview gf-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 120px;
+  text-align: center;
+}
+gf-checkout-overview gf-error .error-kaomoji {
+  font-size: 160px;
+  line-height: 1.2;
+  color: var(--sys-on-surface);
+  font-family: "Roboto", sans-serif;
+}
+gf-checkout-overview gf-error .error-text {
+  margin: 24px 0;
+  color: var(--sys-on-surface);
+}
+gf-checkout-overview gf-error .error-text div {
+  max-width: 420px;
+}
+
+/* De-scoped gf.css zeroes the flat-button padding the live site keeps. */
+gf-specimen-secondary-nav .nav__get-font {
+  padding: 0 24px;
+}
+
+/* A generic de-scoped button[mat-stroked-button]{width:100%} rule stretches
+ * the empty-state CTA; the live button hugs its label. */
+gf-checkout-overview gf-error .mdc-button--outlined {
+  width: fit-content;
+  padding: 0 24px;
+  height: 40px;
+}
+
+/* --- "How to use" resource tiles: the live card layout ships in a chunk the
+ * harvest didn't capture; approximate the two-column card grid. --- */
+gf-how-to-use .how-to-use__header {
+  margin-top: 64px;
+}
+gf-how-to-use .how-to-use__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+gf-how-to-use gf-resource-tile .resource-tile {
+  display: block;
+  height: 100%;
+  padding: 24px;
+  border: 1px solid var(--sys-outline-variant);
+  border-radius: 16px;
+  transition: background-color 0.2s;
+}
+gf-how-to-use gf-resource-tile .resource-tile:hover {
+  background: var(--sys-surface-container-low);
+}
+gf-how-to-use gf-resource-tile .resource-tile__title {
+  margin: 0 0 8px;
+  color: var(--sys-on-surface);
+}
+gf-how-to-use gf-resource-tile .resource-tile__description {
+  margin: 0;
+  color: var(--sys-on-surface-variant);
+}

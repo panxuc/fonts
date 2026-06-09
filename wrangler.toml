@@ -1,0 +1,25 @@
+name = "fonts"
+main = "src/worker.ts"
+compatibility_date = "2026-06-01"
+workers_dev = false
+
+routes = [
+  { pattern = "fonts.panxuc.com", custom_domain = true },
+  { pattern = "fonts-api.panxuc.com", custom_domain = true },
+  { pattern = "fonts-static.panxuc.com", custom_domain = true },
+]
+
+[vars]
+SITE_HOST = "fonts.panxuc.com"
+API_HOST = "fonts-api.panxuc.com"
+STATIC_HOST = "fonts-static.panxuc.com"
+STATIC_BASE_URL = "https://fonts-static.panxuc.com"
+
+[assets]
+directory = "./dist/site"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[[r2_buckets]]
+binding = "FONT_ASSETS"
+bucket_name = "fonts-assets"
