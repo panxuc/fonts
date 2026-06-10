@@ -30,6 +30,7 @@ import {
   weightNames,
   type FamilyDetailMetadata,
   type FamilyMetadata,
+  type FontScript,
   type StyleRow,
 } from "../lib/metadata";
 import { ensureFullFamily } from "../lib/preview-fonts";
@@ -219,7 +220,7 @@ function MiniPlayground({
   script,
 }: {
   font: FamilyMetadata;
-  script: "latin" | "sc" | "tc" | "jp" | "kr";
+  script: FontScript;
 }) {
   const samples = useMemo(
     () => sampleTextsFor(font, script, stylesSampleTextFor(font)),
@@ -706,7 +707,7 @@ function TextPreviewSection({
   script,
 }: {
   font: FamilyMetadata;
-  script: "latin" | "sc" | "tc" | "jp" | "kr";
+  script: FontScript;
 }) {
   const styleRows = useMemo(() => familyStyleRows(font), [font]);
   const weights = useMemo(
@@ -831,8 +832,8 @@ function AboutTab({ font }: { font: FamilyMetadata }) {
                     {font.displayName
                       ? `${font.displayName} (${font.family})`
                       : font.family}{" "}
-                    is served through this font delivery service with
-                    family metadata, the CSS API, and unicode-range sliced WOFF2
+                    is served through this font delivery service with family
+                    metadata, the CSS API, and unicode-range sliced WOFF2
                     delivery.
                   </p>
                   {detail?.minisiteUrl ? (

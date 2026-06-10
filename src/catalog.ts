@@ -59,6 +59,7 @@ export function toFamilyMetadata(
     isOpenSource: isOpenSourceLicense(font.license.type),
     isBrandFont: false,
     languages: languagesFor(font),
+    isCustom: true,
   };
 }
 
@@ -131,6 +132,7 @@ export function toFamilyDetailMetadata(
     languages: languagesFor(font),
     minisiteUrl: font.source.upstream ?? "",
     isOpenSource: isOpenSourceLicense(font.license.type),
+    isCustom: true,
   };
 }
 

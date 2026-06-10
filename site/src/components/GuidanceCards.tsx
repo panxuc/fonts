@@ -78,7 +78,7 @@ function NavButton({
       <span className="mat-mdc-button-persistent-ripple mdc-fab__ripple"></span>
       <span className="mdc-button__label">
         <GfIcon
-          name={side === "right" ? "arrow_forward_ios" : "arrow_back"}
+          name={side === "right" ? "arrow_forward_ios" : "arrow_back_ios"}
           size={20}
           className="nav-button__icon"
           withName

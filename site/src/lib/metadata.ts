@@ -5,6 +5,7 @@ import type {
   FamilyMetadata,
   MetadataFontsResponse,
 } from "../../../src/types";
+import { GLASS_SAMPLE_TEXT, glassSampleCodeForLanguage } from "./glass-samples";
 
 export type { FamilyDetailMetadata, FamilyMetadata };
 
@@ -87,20 +88,20 @@ const CJK_SUBSETS = new Set([
   "korean",
 ]);
 
-export function familyScript(
-  font: FamilyMetadata,
-): "latin" | "sc" | "tc" | "jp" | "kr" {
-  if (font.primaryScript === "Hans") return "sc";
-  if (font.primaryScript === "Hant") return "tc";
-  if (font.primaryScript === "Jpan") return "jp";
-  if (font.primaryScript === "Kore") return "kr";
+export type FontScript = "latin" | "zh-Hans" | "zh-Hant" | "ja" | "ko";
+
+export function familyScript(font: FamilyMetadata): FontScript {
+  if (font.primaryScript === "Hans") return "zh-Hans";
+  if (font.primaryScript === "Hant") return "zh-Hant";
+  if (font.primaryScript === "Jpan") return "ja";
+  if (font.primaryScript === "Kore") return "ko";
   for (const subset of font.subsets) {
-    if (subset === "chinese-simplified") return "sc";
+    if (subset === "chinese-simplified") return "zh-Hans";
     if (subset === "chinese-traditional" || subset === "chinese-hongkong") {
-      return "tc";
+      return "zh-Hant";
     }
-    if (subset === "japanese") return "jp";
-    if (subset === "korean") return "kr";
+    if (subset === "japanese") return "ja";
+    if (subset === "korean") return "ko";
   }
   return "latin";
 }
@@ -112,40 +113,32 @@ export function isCjk(font: FamilyMetadata) {
   );
 }
 
-// Default sample sentence per script, mirroring fonts.google.com previews.
+// Default sample sentence per language from kermitproject.org/utf8.html.
 export function sampleTextFor(font: FamilyMetadata) {
-  const script = familyScript(font);
-  if (script === "sc") {
-    return "人人生而自由，在尊严和权利上一律平等。";
-  }
-  if (script === "tc") {
-    return "人人生而自由，在尊嚴和權利上一律平等。";
-  }
-  if (script === "jp") {
-    return "すべての人間は、生まれながらにして自由であり、";
-  }
-  if (script === "kr") {
-    return "모든 인간은 태어날 때부터 자유로우며";
-  }
-  return "Everyone has the right to freedom of thought, conscience and religion.";
+  return glassSampleTextFor(font);
 }
 
 export function specimenHeroTextFor(font: FamilyMetadata) {
-  const script = familyScript(font);
-  if (script === "sc") return "鉴于对人类家庭所有成员的固有尊严";
-  if (script === "tc") return "鑑於對人類家庭所有成員的固有尊嚴";
-  if (script === "jp") return "人類社会のすべての構成員の固有の尊厳と";
-  if (script === "kr") return "모든 인류 구성원의 천부의 존엄성과";
-  return "Whereas disregard and contempt for human rights have resulted";
+  return glassSampleTextFor(font);
 }
 
 export function stylesSampleTextFor(font: FamilyMetadata) {
+  return glassSampleTextFor(font);
+}
+
+export function glassSampleTextFor(font: FamilyMetadata) {
+  return GLASS_SAMPLE_TEXT[glassSampleCodeFor(font)];
+}
+
+export function glassSampleCodeFor(font: FamilyMetadata) {
+  const languages = [font.primaryLanguage, ...font.languages];
+  for (const language of languages) {
+    const code = glassSampleCodeForLanguage(language);
+    if (code) return code;
+  }
   const script = familyScript(font);
-  if (script === "sc") return "鉴于承认人类家庭所有成员的固有尊严";
-  if (script === "tc") return "鑑於承認人類家庭所有成員的固有尊嚴";
-  if (script === "jp") return "人間の固有の尊厳の承認は";
-  if (script === "kr") return "고유의 존엄성을 인정하는 것은";
-  return "Whereas recognition of the inherent dignity";
+  if (script === "latin") return "en";
+  return script;
 }
 
 export const weightNames: Record<string, string> = {

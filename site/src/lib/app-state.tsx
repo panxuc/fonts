@@ -106,10 +106,13 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     [families],
   );
 
-  const filteredFamilies = useMemo(
-    () => sortFamilies(filterFamilies(families, filters, tags), sort),
-    [families, filters, tags, sort],
-  );
+  const filteredFamilies = useMemo(() => {
+    const matches = filterFamilies(families, filters, tags);
+    const visible = filters.query.trim()
+      ? matches
+      : matches.filter((font) => font.isCustom);
+    return sortFamilies(visible, sort);
+  }, [families, filters, tags, sort]);
 
   const value: AppState = {
     families,

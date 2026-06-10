@@ -46,10 +46,20 @@ function LayoutToggleButton({
 }
 
 export function BrowsePage() {
-  const { families, filteredFamilies, loading, viewMode, setViewMode } =
-    useAppState();
+  const {
+    families,
+    filteredFamilies,
+    filters,
+    loading,
+    viewMode,
+    setViewMode,
+  } = useAppState();
   const filteredCount = loading ? 0 : filteredFamilies.length;
-  const totalCount = loading ? 0 : families.length;
+  const totalCount = loading
+    ? 0
+    : filters.query.trim()
+      ? families.length
+      : families.filter((font) => font.isCustom).length;
 
   return (
     <gf-catalog>

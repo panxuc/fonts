@@ -63,6 +63,7 @@ export type FamilyMetadata = {
   isOpenSource: boolean;
   isBrandFont: boolean;
   languages: string[];
+  isCustom?: boolean;
 };
 
 export type MetadataFontsResponse = {
@@ -100,6 +101,7 @@ export type FamilyDetailMetadata = {
   languages: string[];
   minisiteUrl: string;
   isOpenSource: boolean;
+  isCustom?: boolean;
 };
 
 // Developer API (webfonts/v1/webfonts) item.

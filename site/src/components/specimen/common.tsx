@@ -10,7 +10,11 @@ import {
   type ReactNode,
 } from "react";
 import { Icon } from "../../lib/icons";
-import type { FamilyMetadata } from "../../lib/metadata";
+import {
+  glassSampleTextFor,
+  type FamilyMetadata,
+  type FontScript,
+} from "../../lib/metadata";
 import { navigate } from "../../lib/router";
 
 // ---------------------------------------------------------------------------
@@ -811,93 +815,36 @@ export type SampleTexts = {
   poster: { md: string; lg: string; sm: string } | null;
 };
 
-const LATIN_PARAGRAPH_A =
-  "No one shall be subjected to arbitrary arrest, detention or exile. Everyone is entitled in full equality to a fair and public hearing by an independent and impartial tribunal, in the determination of his rights and obligations and of any criminal charge against him. No one shall be subjected to arbitrary interference with his privacy, family, home or correspondence, nor to attacks upon his honour and reputation. Everyone has the right to the protection of the law against such interference or attacks.";
-
-const LATIN_PARAGRAPH_B =
-  "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.";
-
-const CJK_PARAGRAPH =
-  "鉴于对人类家庭所有成员的固有尊严及其平等的和不移的权利的承认,乃是世界自由、正义与和平的基础, 鉴于对人权的无视和侮蔑已发展为野蛮暴行,这些暴行玷污了人类的良心";
+function gridSamples(text: string): SampleTexts["grid"] {
+  return {
+    48: text,
+    36: text,
+    32: text,
+    21: text,
+    16: text,
+  };
+}
 
 export function sampleTextsFor(
   font: FamilyMetadata,
-  script: "latin" | "sc" | "tc" | "jp" | "kr",
+  script: FontScript,
   stylesSample: string,
 ): SampleTexts {
+  const text = stylesSample || glassSampleTextFor(font);
   if (script === "latin") {
     return {
-      tester: [stylesSample, LATIN_PARAGRAPH_A, LATIN_PARAGRAPH_B],
-      grid: {
-        48: "Whereas a common understanding of these rights and freedoms is",
-        36: "No one shall be held in slavery or servitude; slavery and the slave trade shall be prohibited in all their forms.",
-        32: "Everyone has the right to an effective remedy by the competent national tribunals for acts violating the fundamental rights granted him by the constitution or by law.",
-        21: LATIN_PARAGRAPH_A,
-        16: LATIN_PARAGRAPH_B,
-      },
+      tester: [text, text, text],
+      grid: gridSamples(text),
       poster: null,
     };
   }
-  if (script === "sc" || script === "tc") {
-    const traditional = script === "tc";
-    const t = (simplified: string, trad: string) =>
-      traditional ? trad : simplified;
-    return {
-      tester: [stylesSample, CJK_PARAGRAPH, CJK_PARAGRAPH],
-      grid: {
-        48: t(
-          "法律之前人人平等,并有权享受法律的平等保护,不受任何歧视。",
-          "法律之前人人平等,並有權享受法律的平等保護,不受任何歧視。",
-        ),
-        36: CJK_PARAGRAPH,
-        32: CJK_PARAGRAPH,
-        21: CJK_PARAGRAPH,
-        16: CJK_PARAGRAPH,
-      },
-      poster: {
-        md: t("任何人不得使为奴隶或奴役", "任何人不得使為奴隸或奴役"),
-        lg: t("人人生而自由", "人人生而自由"),
-        sm: t(
-          "人人有权享有生命、自由和人身安全",
-          "人人有權享有生命、自由和人身安全",
-        ),
-      },
-    };
-  }
-  if (script === "jp") {
-    const paragraph =
-      "人類社会のすべての構成員の固有の尊厳と平等で譲ることのできない権利とを承認することは、世界における自由、正義及び平和の基礎である";
-    return {
-      tester: [stylesSample, paragraph, paragraph],
-      grid: {
-        48: "すべての人は、法の前において平等であり、",
-        36: paragraph,
-        32: paragraph,
-        21: paragraph,
-        16: paragraph,
-      },
-      poster: {
-        md: "何人も、奴隷にされ、又は苦役に服することはない",
-        lg: "すべての人間は、生まれながらにして自由であり",
-        sm: "すべての人は、生命、自由及び身体の安全に対する権利を有する",
-      },
-    };
-  }
-  const paragraph =
-    "모든 인류 구성원의 천부의 존엄성과 동등하고 양도할 수 없는 권리를 인정하는 것이 세계의 자유, 정의 및 평화의 기초이며";
   return {
-    tester: [stylesSample, paragraph, paragraph],
-    grid: {
-      48: "모든 사람은 법 앞에 평등하며",
-      36: paragraph,
-      32: paragraph,
-      21: paragraph,
-      16: paragraph,
-    },
+    tester: [text, text, text],
+    grid: gridSamples(text),
     poster: {
-      md: "어느 누구도 노예나 예속 상태에 놓이지 아니한다",
-      lg: "모든 인간은 태어날 때부터 자유로우며",
-      sm: "모든 사람은 생명권과 신체의 자유와 안전을 누릴 권리가 있다",
+      md: text,
+      lg: text,
+      sm: text,
     },
   };
 }
