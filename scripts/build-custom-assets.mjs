@@ -11,7 +11,8 @@ import {
   writeFileSync,
 } from "node:fs";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
+import { availableParallelism } from "node:os";
+import { spawn, spawnSync } from "node:child_process";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
@@ -57,6 +58,9 @@ const r2SecretAccessKey =
   process.env.AWS_SECRET_ACCESS_KEY?.trim();
 const r2UploadConcurrency = optionalPositiveIntegerEnv("R2_UPLOAD_CONCURRENCY");
 const r2UploadRetries = positiveIntegerEnv("R2_UPLOAD_RETRIES", 5);
+const fontBuildConcurrency =
+  optionalPositiveIntegerEnv("FONT_BUILD_CONCURRENCY") ??
+  Math.max(1, availableParallelism());
 const pyftsubsetBin = existsSync(
   path.join(rootDir, ".venv", "bin", "pyftsubset"),
 )
@@ -155,6 +159,8 @@ if (!materialize) {
   process.exit(0);
 }
 
+const subsetJobs = [];
+const buildCountsByFont = new Map();
 for (const font of customFonts) {
   const rawFont = rawById.get(font.id);
   if (!rawFont) throw new Error(`Missing raw catalog entry for ${font.id}`);
@@ -172,9 +178,28 @@ for (const font of customFonts) {
       asset.weight,
       asset.style,
     );
-    subsetAsset({ asset, sourceFile });
+    subsetJobs.push({ asset, sourceFile });
   }
-  console.log(`Built ${fontAssets.length} assets for ${font.id}`);
+  buildCountsByFont.set(font.id, fontAssets.length);
+}
+
+if (subsetJobs.length) {
+  console.log(
+    `Building ${subsetJobs.length} assets with concurrency ${fontBuildConcurrency}.`,
+  );
+  await runPool(subsetJobs, fontBuildConcurrency, async (job, index) => {
+    await subsetAsset(job);
+    const position = index + 1;
+    if (position === subsetJobs.length || position % 25 === 0) {
+      console.log(`Built ${position}/${subsetJobs.length} assets`);
+    }
+  });
+}
+
+for (const font of customFonts) {
+  console.log(
+    `Built ${buildCountsByFont.get(font.id) ?? 0} assets for ${font.id}`,
+  );
 }
 
 if (uploadR2) {
@@ -776,10 +801,10 @@ function extractArchive(archive, targetDir) {
 // ---------------------------------------------------------------------------
 // Subsetting and upload
 
-function subsetAsset({ asset, sourceFile }) {
+async function subsetAsset({ asset, sourceFile }) {
   const targetFile = assetFilePath(asset);
   mkdirSync(path.dirname(targetFile), { recursive: true });
-  const result = spawnSync(
+  const result = await runCommand(
     pyftsubsetBin,
     [
       sourceFile,
@@ -791,7 +816,7 @@ function subsetAsset({ asset, sourceFile }) {
     ],
     { stdio: "inherit" },
   );
-  if (result.status !== 0) {
+  if (result !== 0) {
     throw new Error(
       `pyftsubset failed for ${asset.family} ${asset.weight} ${asset.style} shard ${asset.shardId}`,
     );
@@ -955,6 +980,14 @@ async function runPool(items, concurrency, worker) {
     },
   );
   await Promise.all(workers);
+}
+
+function runCommand(command, commandArgs, options = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, commandArgs, options);
+    child.on("error", reject);
+    child.on("close", (code) => resolve(code ?? 1));
+  });
 }
 
 function retryDelayMs(attempt) {

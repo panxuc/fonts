@@ -9,6 +9,7 @@
 // comments; the groups follow the requested order.
 
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import {
   generateCustomCss,
   googleCssUrl,
@@ -451,10 +452,24 @@ const workerEnv = {
   API_HOST: "fonts-api.example",
   STATIC_HOST: "fonts-static.example",
   STATIC_BASE_URL: "https://fonts-static.example",
+  ASSETS: {
+    async fetch(request) {
+      const url = new URL(request.url);
+      if (url.pathname === "/data/catalog-data.json") {
+        return new Response(readFileSync("src/generated/catalog-data.json"), {
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      return new Response("Not found", { status: 404 });
+    },
+  },
 };
+const generatedCatalog = JSON.parse(
+  readFileSync("src/generated/catalog-data.json", "utf8"),
+);
 
 test("serves Google-shaped css2 for a materialized catalog family", async () => {
-  const font = findCustomFamily("LXGW WenKai Screen");
+  const font = findCustomFamily(generatedCatalog, "LXGW WenKai Screen");
   assert.ok(font, "expected LXGW WenKai Screen in the generated catalog");
   assert.ok(font.shards.length > 0, "expected materialized shards");
 

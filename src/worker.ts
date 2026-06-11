@@ -14,6 +14,7 @@ import {
 } from "./css-api.ts";
 import type {
   CssFamilyRequest,
+  FontCatalogEntry,
   MetadataFontsResponse,
   WebfontsResponse,
 } from "./types.ts";
@@ -39,6 +40,7 @@ type R2ObjectLike = {
 
 const defaultUserAgent =
   "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36";
+let catalogCache: Promise<FontCatalogEntry[]> | null = null;
 
 export default {
   async fetch(request: Request, env: FontsEnv): Promise<Response> {
@@ -58,17 +60,18 @@ export default {
 
 async function handleApiRequest(request: Request, env: FontsEnv) {
   const url = new URL(request.url);
+  const fontCatalog = await loadCustomCatalog(env);
   if (url.pathname === "/css" || url.pathname === "/css2") {
-    return handleCssRequest(request, env);
+    return handleCssRequest(request, env, fontCatalog);
   }
   if (url.pathname === "/webfonts/v1/webfonts") {
-    return handleWebfontsRequest(request, env);
+    return handleWebfontsRequest(request, env, fontCatalog);
   }
   if (url.pathname === "/metadata/fonts") {
-    return handleMetadataFontsRequest();
+    return handleMetadataFontsRequest(fontCatalog);
   }
   if (url.pathname.startsWith("/metadata/fonts/")) {
-    return handleMetadataFamilyRequest(url);
+    return handleMetadataFamilyRequest(url, fontCatalog);
   }
   return new Response("Not found", { status: 404 });
 }
@@ -76,7 +79,11 @@ async function handleApiRequest(request: Request, env: FontsEnv) {
 // ---------------------------------------------------------------------------
 // CSS API (/css and /css2)
 
-async function handleCssRequest(request: Request, env: FontsEnv) {
+async function handleCssRequest(
+  request: Request,
+  env: FontsEnv,
+  fontCatalog: FontCatalogEntry[],
+) {
   const url = new URL(request.url);
   const cssRequest = parseCssApiRequest(url);
   if (!cssRequest.families.length) {
@@ -85,7 +92,7 @@ async function handleCssRequest(request: Request, env: FontsEnv) {
 
   const blocks: string[] = [];
   for (const familyRequest of cssRequest.families) {
-    const font = findCustomFamily(familyRequest.family);
+    const font = findCustomFamily(fontCatalog, familyRequest.family);
 
     if (font) {
       blocks.push(
@@ -147,17 +154,20 @@ async function fetchGoogleCssBlock(
 // ---------------------------------------------------------------------------
 // Metadata API (fonts.google.com/metadata/*)
 
-async function handleMetadataFontsRequest() {
+async function handleMetadataFontsRequest(fontCatalog: FontCatalogEntry[]) {
   const official = await fetchOfficialMetadataFonts();
-  if (official) return json(appendCustomFamilyMetadata(official));
-  return json(toMetadataFontsResponse());
+  if (official) return json(appendCustomFamilyMetadata(official, fontCatalog));
+  return json(toMetadataFontsResponse(fontCatalog));
 }
 
-async function handleMetadataFamilyRequest(url: URL) {
+async function handleMetadataFamilyRequest(
+  url: URL,
+  fontCatalog: FontCatalogEntry[],
+) {
   const family = decodeURIComponent(
     url.pathname.replace("/metadata/fonts/", ""),
   );
-  const font = findCustomFamily(family);
+  const font = findCustomFamily(fontCatalog, family);
   if (font) {
     return text(
       `)]}'\n${JSON.stringify(toFamilyDetailMetadata(font), null, 2)}`,
@@ -210,16 +220,20 @@ async function fetchOfficialMetadataFamily(family: string) {
 // ---------------------------------------------------------------------------
 // Developer API (webfonts/v1/webfonts)
 
-async function handleWebfontsRequest(request: Request, env: FontsEnv) {
+async function handleWebfontsRequest(
+  request: Request,
+  env: FontsEnv,
+  fontCatalog: FontCatalogEntry[],
+) {
   const url = new URL(request.url);
   const staticBase = staticBaseUrl(env, request);
   if (env.GOOGLE_FONTS_API_KEY) {
     const official = await fetchOfficialWebfonts(url, env);
     if (official) {
-      return json(mergeCustomWebfonts(official, staticBase));
+      return json(mergeCustomWebfonts(official, fontCatalog, staticBase));
     }
   }
-  return json(toWebfontsResponse(staticBase));
+  return json(toWebfontsResponse(fontCatalog, staticBase));
 }
 
 async function fetchOfficialWebfonts(url: URL, env: FontsEnv) {
@@ -240,6 +254,27 @@ async function fetchOfficialWebfonts(url: URL, env: FontsEnv) {
   } catch {
     return null;
   }
+}
+
+// ---------------------------------------------------------------------------
+// Custom catalog data
+
+async function loadCustomCatalog(env: FontsEnv): Promise<FontCatalogEntry[]> {
+  catalogCache ??= readCustomCatalog(env);
+  return catalogCache;
+}
+
+async function readCustomCatalog(env: FontsEnv): Promise<FontCatalogEntry[]> {
+  if (!env.ASSETS) {
+    throw new Error("ASSETS binding is required to load the custom catalog");
+  }
+  const response = await env.ASSETS.fetch(
+    new Request("https://assets.local/data/catalog-data.json"),
+  );
+  if (!response.ok) {
+    throw new Error(`Unable to load custom catalog: ${response.status}`);
+  }
+  return (await response.json()) as FontCatalogEntry[];
 }
 
 // ---------------------------------------------------------------------------

@@ -1,4 +1,3 @@
-import { fontCatalog } from "./generated/catalog-data.ts";
 import type {
   FamilyDetailMetadata,
   FamilyMetadata,
@@ -9,19 +8,16 @@ import type {
   WebfontsResponse,
 } from "./types";
 
-export { fontCatalog };
 export type { FontCatalogEntry };
 
-const familyIndex = new Map(
-  fontCatalog.map((font) => [normalizeFamily(font.family), font]),
-);
-
-export function findCustomFamily(family: string): FontCatalogEntry | null {
+export function findCustomFamily(
+  fontCatalog: FontCatalogEntry[],
+  family: string,
+): FontCatalogEntry | null {
+  const familyIndex = new Map(
+    fontCatalog.map((font) => [normalizeFamily(font.family), font]),
+  );
   return familyIndex.get(normalizeFamily(family)) ?? null;
-}
-
-export function customFamilies(): FontCatalogEntry[] {
-  return fontCatalog;
 }
 
 export function normalizeFamily(value: string) {
@@ -65,6 +61,7 @@ export function toFamilyMetadata(
 
 export function appendCustomFamilyMetadata(
   response: MetadataFontsResponse,
+  fontCatalog: FontCatalogEntry[],
 ): MetadataFontsResponse {
   const seen = new Set(
     response.familyMetadataList.map((font) => normalizeFamily(font.family)),
@@ -87,7 +84,9 @@ export function appendCustomFamilyMetadata(
   };
 }
 
-export function toMetadataFontsResponse(): MetadataFontsResponse {
+export function toMetadataFontsResponse(
+  fontCatalog: FontCatalogEntry[],
+): MetadataFontsResponse {
   return {
     axisRegistry: [],
     familyMetadataList: fontCatalog.map((font, index) =>
@@ -167,7 +166,10 @@ export function toWebfontItem(
   };
 }
 
-export function toWebfontsResponse(staticBase: string): WebfontsResponse {
+export function toWebfontsResponse(
+  fontCatalog: FontCatalogEntry[],
+  staticBase: string,
+): WebfontsResponse {
   return {
     kind: "webfonts#webfontList",
     items: [...fontCatalog]
@@ -178,6 +180,7 @@ export function toWebfontsResponse(staticBase: string): WebfontsResponse {
 
 export function mergeCustomWebfonts(
   official: WebfontsResponse,
+  fontCatalog: FontCatalogEntry[],
   staticBase: string,
 ): WebfontsResponse {
   const seen = new Set(official.items.map((item) => item.family));

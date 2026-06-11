@@ -62,7 +62,9 @@ slice tables (`scripts/data/cjk-slices.json` for zh-Hans/zh-Hant/ja/ko,
 WOFF2 per shard named
 `s/<id>/v<version>/<id>-<style>-<weight>.<shard>.woff2` — the same key the
 worker's CSS output references. TTC/OTC collections are unpacked first and
-the member is picked by family name.
+the member is picked by family name. WOFF2 subsetting runs concurrently using
+the available processor count by default; set `FONT_BUILD_CONCURRENCY` to
+override it.
 
 Font asset builds are intentionally separate from normal app builds because
 subsetting and uploading CJK fonts can exceed short CI timeouts. The

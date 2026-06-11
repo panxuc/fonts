@@ -7,6 +7,10 @@ const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const catalogFile = path.join(rootDir, "fonts.catalog.yaml");
 const outFile = path.join(rootDir, "src/generated/catalog-data.ts");
 const jsonOutFile = path.join(rootDir, "src/generated/catalog-data.json");
+const publicJsonOutFile = path.join(
+  rootDir,
+  "site/public/data/catalog-data.json",
+);
 const shardsFile = path.join(rootDir, "scripts/data/catalog-shards.json");
 const catalog = YAML.parse(readFileSync(catalogFile, "utf8"));
 
@@ -30,6 +34,7 @@ const entries = catalog
   .map(normalizeFont);
 
 mkdirSync(path.dirname(outFile), { recursive: true });
+mkdirSync(path.dirname(publicJsonOutFile), { recursive: true });
 writeFileSync(
   outFile,
   await format(
@@ -52,6 +57,7 @@ writeFileSync(
   }),
   "utf8",
 );
+writeFileSync(publicJsonOutFile, readFileSync(jsonOutFile), "utf8");
 
 console.log(`Wrote ${entries.length} custom catalog entries to ${outFile}`);
 
