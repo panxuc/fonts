@@ -50,9 +50,9 @@ Custom font assets:
 
 ```bash
 pnpm build:catalog                                   # YAML -> src/generated
-CUSTOM_FONT_FILTER=lxgw-wenkai pnpm materialize:custom-assets   # build WOFF2 locally
-pnpm sync:local-assets                               # copy into dist/site for local dev
-FONT_ASSETS_BUCKET=fonts-assets pnpm deploy:fonts    # build + upload to R2
+CUSTOM_FONT_FILTER=lxgw-wenkai pnpm materialize:custom-assets # build WOFF2 locally
+pnpm sync:local-assets                             # copy into dist/site for local dev
+FONT_ASSETS_BUCKET=fonts-assets pnpm deploy:fonts  # build + upload to R2
 ```
 
 Materializing reads each source font's cmap, intersects it with Google's
@@ -70,6 +70,14 @@ subsetting and uploading CJK fonts can exceed short CI timeouts. The
 can also be started manually with an optional `custom_font_filter` input for
 one or more font ids. It uploads WOFF2 assets to R2 and commits updated shard
 metadata back to `scripts/data/catalog-shards.json`.
+
+R2 uploads use Cloudflare's S3-compatible API when `CLOUDFLARE_ACCOUNT_ID`,
+`R2_ACCESS_KEY_ID`, and `R2_SECRET_ACCESS_KEY` are set. This path uploads with
+bounded concurrency and retries (`R2_UPLOAD_CONCURRENCY`, default `8` for S3
+uploads and `2` for Wrangler fallback;
+`R2_UPLOAD_RETRIES`, default `5`) and is much faster than one-by-one Wrangler
+uploads. If those S3 credentials are missing, the script falls back to
+`wrangler r2 object put --remote`.
 
 Some upstream hosts publish incomplete TLS chains; downloads fall back to
 `curl --insecure` only for hosts in `FONT_DOWNLOAD_INSECURE_HOSTS`
@@ -97,6 +105,12 @@ pnpm exec wrangler r2 bucket create fonts-assets
 pnpm exec wrangler secret put GOOGLE_FONTS_API_KEY   # optional, for /webfonts/v1
 pnpm deploy   # build catalog + site + wrangler deploy
 ```
+
+For the Font assets workflow, configure these repository secrets:
+`CLOUDFLARE_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, and `R2_SECRET_ACCESS_KEY`.
+`CLOUDFLARE_API_TOKEN` can remain for Wrangler fallback and other Cloudflare
+CLI operations. Configure the repository variable `FONT_ASSETS_BUCKET`
+(`fonts-assets` by default).
 
 When font sources or versions change, publish font assets separately with the
 Font assets GitHub Actions workflow, or run `pnpm deploy:fonts` locally with

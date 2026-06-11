@@ -1,5 +1,6 @@
-import { createHash } from "node:crypto";
+import { createHash, webcrypto } from "node:crypto";
 import {
+  createReadStream,
   createWriteStream,
   existsSync,
   mkdirSync,
@@ -27,7 +28,10 @@ const generatedCatalogModule = path.join(
   "src/generated/catalog-data.ts",
 );
 const rawCatalogFile = path.join(rootDir, "fonts.catalog.yaml");
-const catalogShardsFile = path.join(rootDir, "scripts/data/catalog-shards.json");
+const catalogShardsFile = path.join(
+  rootDir,
+  "scripts/data/catalog-shards.json",
+);
 const cjkSlicesFile = path.join(rootDir, "scripts/data/cjk-slices.json");
 const namedSubsetsFile = path.join(rootDir, "scripts/data/named-subsets.json");
 const outDir = path.join(rootDir, ".cache/custom-assets");
@@ -37,6 +41,7 @@ const outFile = path.join(outDir, "manifest.json");
 const args = new Set(process.argv.slice(2));
 const materialize = args.has("--materialize");
 const uploadR2 = args.has("--upload-r2");
+const uploadMethod = process.env.R2_UPLOAD_METHOD?.trim() || "auto";
 const filter = new Set(
   (process.env.CUSTOM_FONT_FILTER ?? "")
     .split(",")
@@ -44,6 +49,14 @@ const filter = new Set(
     .filter(Boolean),
 );
 const r2Bucket = process.env.FONT_ASSETS_BUCKET?.trim() || "fonts-assets";
+const r2AccountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim();
+const r2AccessKeyId =
+  process.env.R2_ACCESS_KEY_ID?.trim() || process.env.AWS_ACCESS_KEY_ID?.trim();
+const r2SecretAccessKey =
+  process.env.R2_SECRET_ACCESS_KEY?.trim() ||
+  process.env.AWS_SECRET_ACCESS_KEY?.trim();
+const r2UploadConcurrency = optionalPositiveIntegerEnv("R2_UPLOAD_CONCURRENCY");
+const r2UploadRetries = positiveIntegerEnv("R2_UPLOAD_RETRIES", 5);
 const pyftsubsetBin = existsSync(
   path.join(rootDir, ".venv", "bin", "pyftsubset"),
 )
@@ -76,7 +89,7 @@ const customFonts = generatedFonts.filter(
 );
 const preparedSourceFiles = new Map();
 
-if (uploadR2) {
+if (uploadR2 && selectedUploadMethod() === "wrangler") {
   assertCommand(
     "wrangler",
     ["--version"],
@@ -160,9 +173,12 @@ for (const font of customFonts) {
       asset.style,
     );
     subsetAsset({ asset, sourceFile });
-    if (uploadR2) uploadAsset(asset);
   }
   console.log(`Built ${fontAssets.length} assets for ${font.id}`);
+}
+
+if (uploadR2) {
+  await uploadAssets(assets);
 }
 
 console.log(
@@ -782,7 +798,129 @@ function subsetAsset({ asset, sourceFile }) {
   }
 }
 
-function uploadAsset(asset) {
+async function uploadAssets(assets) {
+  if (assets.length === 0) return;
+  const method = selectedUploadMethod();
+  const concurrency = r2UploadConcurrency ?? (method === "s3" ? 8 : 2);
+  console.log(
+    `Uploading ${assets.length} assets to R2 bucket ${r2Bucket} using ${method} with concurrency ${concurrency}.`,
+  );
+  await runPool(assets, concurrency, async (asset, index) => {
+    await uploadAssetWithRetry(asset, method, index + 1, assets.length);
+  });
+}
+
+function selectedUploadMethod() {
+  const method = uploadMethod.toLocaleLowerCase();
+  if (method === "s3") {
+    if (!r2AccountId || !r2AccessKeyId || !r2SecretAccessKey) {
+      throw new Error(
+        "R2_UPLOAD_METHOD=s3 requires CLOUDFLARE_ACCOUNT_ID, R2_ACCESS_KEY_ID, and R2_SECRET_ACCESS_KEY.",
+      );
+    }
+    return method;
+  }
+  if (method === "wrangler") return method;
+  if (method !== "auto") {
+    throw new Error(
+      `Unsupported R2_UPLOAD_METHOD=${uploadMethod}; expected auto, s3, or wrangler.`,
+    );
+  }
+  return r2AccountId && r2AccessKeyId && r2SecretAccessKey ? "s3" : "wrangler";
+}
+
+async function uploadAssetWithRetry(asset, method, position, total) {
+  let lastError = null;
+  for (let attempt = 1; attempt <= r2UploadRetries + 1; attempt += 1) {
+    try {
+      if (method === "s3") await uploadAssetWithS3(asset);
+      else uploadAssetWithWrangler(asset);
+      if (position === total || position % 25 === 0) {
+        console.log(`Uploaded ${position}/${total} assets`);
+      }
+      return;
+    } catch (error) {
+      lastError = error;
+      if (attempt > r2UploadRetries) break;
+      const delay = retryDelayMs(attempt);
+      console.warn(
+        `Upload failed for ${asset.key} (attempt ${attempt}/${r2UploadRetries + 1}): ${errorMessage(error)}. Retrying in ${Math.round(delay / 1000)}s.`,
+      );
+      await sleep(delay);
+    }
+  }
+  throw new Error(
+    `Failed to upload ${asset.key} to R2 bucket ${r2Bucket}: ${errorMessage(lastError)}`,
+  );
+}
+
+async function uploadAssetWithS3(asset) {
+  if (!r2AccountId || !r2AccessKeyId || !r2SecretAccessKey) {
+    throw new Error(
+      "S3 upload requires CLOUDFLARE_ACCOUNT_ID, R2_ACCESS_KEY_ID, and R2_SECRET_ACCESS_KEY.",
+    );
+  }
+  const targetFile = assetFilePath(asset);
+  const objectPath = `${r2Bucket}/${asset.key}`;
+  const endpoint = `https://${r2AccountId}.r2.cloudflarestorage.com/${encodeS3Path(objectPath)}`;
+  const payloadHash = sha256Hex(readFileSync(targetFile));
+  const now = new Date();
+  const amzDate = timestamp(now);
+  const dateStamp = amzDate.slice(0, 8);
+  const headers = {
+    "content-length": String(statSync(targetFile).size),
+    "content-type": "font/woff2",
+    host: `${r2AccountId}.r2.cloudflarestorage.com`,
+    "x-amz-content-sha256": payloadHash,
+    "x-amz-date": amzDate,
+  };
+  const signedHeaders = Object.keys(headers).sort().join(";");
+  const canonicalHeaders = Object.keys(headers)
+    .sort()
+    .map((key) => `${key}:${headers[key]}\n`)
+    .join("");
+  const canonicalRequest = [
+    "PUT",
+    `/${encodeS3Path(objectPath)}`,
+    "",
+    canonicalHeaders,
+    signedHeaders,
+    payloadHash,
+  ].join("\n");
+  const credentialScope = `${dateStamp}/auto/s3/aws4_request`;
+  const stringToSign = [
+    "AWS4-HMAC-SHA256",
+    amzDate,
+    credentialScope,
+    sha256Hex(canonicalRequest),
+  ].join("\n");
+  const signature = hex(
+    await hmac(
+      await signingKey(r2SecretAccessKey, dateStamp),
+      new TextEncoder().encode(stringToSign),
+    ),
+  );
+  const response = await fetch(endpoint, {
+    method: "PUT",
+    headers: {
+      ...headers,
+      Authorization: [
+        `AWS4-HMAC-SHA256 Credential=${r2AccessKeyId}/${credentialScope}`,
+        `SignedHeaders=${signedHeaders}`,
+        `Signature=${signature}`,
+      ].join(", "),
+    },
+    body: createReadStream(targetFile),
+    duplex: "half",
+  });
+  if (!response.ok) {
+    throw new Error(
+      `S3 PUT ${response.status} ${response.statusText}: ${await response.text()}`,
+    );
+  }
+}
+
+function uploadAssetWithWrangler(asset) {
   const targetFile = assetFilePath(asset);
   const result = spawnSync(
     "wrangler",
@@ -802,6 +940,70 @@ function uploadAsset(asset) {
   if (result.status !== 0) {
     throw new Error(`Failed to upload ${asset.key} to R2 bucket ${r2Bucket}`);
   }
+}
+
+async function runPool(items, concurrency, worker) {
+  let cursor = 0;
+  const workers = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    async () => {
+      while (cursor < items.length) {
+        const index = cursor;
+        cursor += 1;
+        await worker(items[index], index);
+      }
+    },
+  );
+  await Promise.all(workers);
+}
+
+function retryDelayMs(attempt) {
+  const base = Math.min(60_000, 1_000 * 2 ** (attempt - 1));
+  return base + Math.floor(Math.random() * 500);
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function encodeS3Path(value) {
+  return value
+    .split("/")
+    .map((part) => encodeURIComponent(part))
+    .join("/");
+}
+
+function timestamp(date) {
+  return date.toISOString().replace(/[:-]|\.\d{3}/g, "");
+}
+
+function sha256Hex(value) {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+async function signingKey(secret, dateStamp) {
+  const encoder = new TextEncoder();
+  const dateKey = await hmac(encoder.encode(`AWS4${secret}`), dateStamp);
+  const regionKey = await hmac(dateKey, "auto");
+  const serviceKey = await hmac(regionKey, "s3");
+  return hmac(serviceKey, "aws4_request");
+}
+
+async function hmac(key, value) {
+  const cryptoKey = await webcrypto.subtle.importKey(
+    "raw",
+    key instanceof Uint8Array ? key : new Uint8Array(key),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const data =
+    typeof value === "string" ? new TextEncoder().encode(value) : value;
+  return new Uint8Array(await webcrypto.subtle.sign("HMAC", cryptoKey, data));
+}
+
+function hex(bytes) {
+  return [...bytes].map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
 function pickSourceFile(sourceFiles, sourcePath) {
@@ -854,6 +1056,16 @@ function encodePath(value) {
 
 function shortHash(value) {
   return createHash("sha256").update(value).digest("hex").slice(0, 12);
+}
+
+function positiveIntegerEnv(name, fallback) {
+  const value = Number.parseInt(process.env[name] ?? "", 10);
+  return Number.isFinite(value) && value > 0 ? value : fallback;
+}
+
+function optionalPositiveIntegerEnv(name) {
+  const value = Number.parseInt(process.env[name] ?? "", 10);
+  return Number.isFinite(value) && value > 0 ? value : null;
 }
 
 function assertCommand(command, commandArgs, message) {
