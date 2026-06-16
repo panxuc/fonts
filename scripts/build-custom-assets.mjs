@@ -42,6 +42,7 @@ const outFile = path.join(outDir, "manifest.json");
 const args = new Set(process.argv.slice(2));
 const materialize = args.has("--materialize");
 const uploadR2 = args.has("--upload-r2");
+const forceBuild = args.has("--force") || truthyEnv("FONT_BUILD_FORCE");
 const uploadMethod = process.env.R2_UPLOAD_METHOD?.trim() || "auto";
 const filter = new Set(
   (process.env.CUSTOM_FONT_FILTER ?? "")
@@ -69,6 +70,7 @@ const pyftsubsetBin = existsSync(
 const pythonBin = existsSync(path.join(rootDir, ".venv", "bin", "python"))
   ? path.join(rootDir, ".venv", "bin", "python")
   : "python3";
+const r2Method = uploadR2 ? selectedUploadMethod() : null;
 // Google's real CJK slice tables (parsed from live css2 responses) plus the
 // named subset ranges Google uses for non-CJK fonts.
 const cjkSlices = JSON.parse(readFileSync(cjkSlicesFile, "utf8"));
@@ -93,7 +95,7 @@ const customFonts = generatedFonts.filter(
 );
 const preparedSourceFiles = new Map();
 
-if (uploadR2 && selectedUploadMethod() === "wrangler") {
+if (uploadR2 && r2Method === "wrangler") {
   assertCommand(
     "wrangler",
     ["--version"],
@@ -114,6 +116,10 @@ if (materialize) {
   );
 
   for (const font of customFonts) {
+    if (!forceBuild && font.shards?.length) {
+      console.log(`Using ${font.shards.length} existing shards for ${font.id}`);
+      continue;
+    }
     const rawFont = rawById.get(font.id);
     if (!rawFont) throw new Error(`Missing raw catalog entry for ${font.id}`);
     const sourceFiles = await prepareSourceFiles(rawFont);
@@ -161,17 +167,25 @@ if (!materialize) {
 
 const subsetJobs = [];
 const buildCountsByFont = new Map();
+const localSkipCountsByFont = new Map();
+
 for (const font of customFonts) {
   const rawFont = rawById.get(font.id);
   if (!rawFont) throw new Error(`Missing raw catalog entry for ${font.id}`);
-  const sourceFiles =
-    preparedSourceFiles.get(font.id) ?? (await prepareSourceFiles(rawFont));
   const fontAssets = assets.filter((asset) => asset.fontId === font.id);
-  rmSync(path.join(filesDir, "s", font.id, `v${font.version}`), {
-    recursive: true,
-    force: true,
-  });
+  if (forceBuild) {
+    rmSync(path.join(filesDir, "s", font.id, `v${font.version}`), {
+      recursive: true,
+      force: true,
+    });
+  }
+  let sourceFiles = preparedSourceFiles.get(font.id) ?? null;
   for (const asset of fontAssets) {
+    if (!forceBuild && hasUsableAssetFile(asset)) {
+      incrementCount(localSkipCountsByFont, font.id);
+      continue;
+    }
+    sourceFiles ??= await prepareSourceFiles(rawFont);
     const sourceFile = subsettableSourceFile(
       rawFont,
       sourceFiles,
@@ -179,13 +193,13 @@ for (const font of customFonts) {
       asset.style,
     );
     subsetJobs.push({ asset, sourceFile });
+    incrementCount(buildCountsByFont, font.id);
   }
-  buildCountsByFont.set(font.id, fontAssets.length);
 }
 
 if (subsetJobs.length) {
   console.log(
-    `Building ${subsetJobs.length} assets with concurrency ${fontBuildConcurrency}.`,
+    `Building ${subsetJobs.length} missing assets with concurrency ${fontBuildConcurrency}.`,
   );
   await runPool(subsetJobs, fontBuildConcurrency, async (job, index) => {
     await subsetAsset(job);
@@ -194,20 +208,49 @@ if (subsetJobs.length) {
       console.log(`Built ${position}/${subsetJobs.length} assets`);
     }
   });
-}
-
-for (const font of customFonts) {
+} else {
   console.log(
-    `Built ${buildCountsByFont.get(font.id) ?? 0} assets for ${font.id}`,
+    "All planned custom font assets already exist; nothing to build.",
   );
 }
 
+for (const font of customFonts) {
+  const parts = [`built ${buildCountsByFont.get(font.id) ?? 0}`];
+  const localSkipped = localSkipCountsByFont.get(font.id) ?? 0;
+  if (localSkipped) parts.push(`skipped ${localSkipped} local`);
+  console.log(`${font.id}: ${parts.join(", ")} assets`);
+}
+
+let uploadCandidates = assets;
 if (uploadR2) {
-  await uploadAssets(assets);
+  uploadCandidates = assets;
+  const missingUploadFiles = uploadCandidates.filter(
+    (asset) => !hasUsableAssetFile(asset),
+  );
+  if (missingUploadFiles.length) {
+    throw new Error(
+      [
+        `Cannot upload ${missingUploadFiles.length} assets because their local WOFF2 files are missing.`,
+        `First missing assets: ${missingUploadFiles
+          .slice(0, 10)
+          .map((asset) => asset.key)
+          .join(", ")}`,
+      ].join("\n"),
+    );
+  }
+  await uploadAssets(uploadCandidates);
 }
 
 console.log(
-  `${uploadR2 ? "Built and uploaded" : "Built"} ${assets.length} custom font assets using ${pyftsubsetBin}.`,
+  [
+    `${uploadR2 ? "Built/uploaded" : "Built"} ${subsetJobs.length} custom font assets using ${pyftsubsetBin}.`,
+    uploadR2 ? `Uploaded ${uploadCandidates.length} assets.` : "",
+    sumCounts(localSkipCountsByFont)
+      ? `Skipped ${sumCounts(localSkipCountsByFont)} local existing assets.`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" "),
 );
 
 // ---------------------------------------------------------------------------
@@ -437,8 +480,15 @@ async function writeGeneratedCatalog(fonts) {
 
 async function writeCatalogShards(fonts) {
   const shardsByFont = {};
+  const versionsByFont = {};
   for (const font of fonts) {
-    if (font.shards?.length) shardsByFont[font.id] = font.shards;
+    if (font.shards?.length) {
+      shardsByFont[font.id] = font.shards;
+      versionsByFont[font.id] = font.version;
+    }
+  }
+  if (Object.keys(versionsByFont).length) {
+    shardsByFont._versions = versionsByFont;
   }
   writeFileSync(
     catalogShardsFile,
@@ -825,7 +875,7 @@ async function subsetAsset({ asset, sourceFile }) {
 
 async function uploadAssets(assets) {
   if (assets.length === 0) return;
-  const method = selectedUploadMethod();
+  const method = r2Method ?? selectedUploadMethod();
   const concurrency = r2UploadConcurrency ?? (method === "s3" ? 8 : 2);
   console.log(
     `Uploading ${assets.length} assets to R2 bucket ${r2Bucket} using ${method} with concurrency ${concurrency}.`,
@@ -886,31 +936,59 @@ async function uploadAssetWithS3(asset) {
     );
   }
   const targetFile = assetFilePath(asset);
+  const response = await signedR2Request(asset, "PUT", {
+    body: createReadStream(targetFile),
+    contentLength: statSync(targetFile).size,
+    contentType: "font/woff2",
+    payloadHash: sha256Hex(readFileSync(targetFile)),
+  });
+  if (!response.ok) {
+    throw new Error(
+      `S3 PUT ${response.status} ${response.statusText}: ${await response.text()}`,
+    );
+  }
+}
+
+async function signedR2Request(
+  asset,
+  method,
+  {
+    body = null,
+    contentLength = null,
+    contentType = null,
+    payloadHash = null,
+  } = {},
+) {
+  if (!r2AccountId || !r2AccessKeyId || !r2SecretAccessKey) {
+    throw new Error(
+      "S3 requests require CLOUDFLARE_ACCOUNT_ID, R2_ACCESS_KEY_ID, and R2_SECRET_ACCESS_KEY.",
+    );
+  }
   const objectPath = `${r2Bucket}/${asset.key}`;
   const endpoint = `https://${r2AccountId}.r2.cloudflarestorage.com/${encodeS3Path(objectPath)}`;
-  const payloadHash = sha256Hex(readFileSync(targetFile));
+  const requestPayloadHash = payloadHash ?? sha256Hex("");
   const now = new Date();
   const amzDate = timestamp(now);
   const dateStamp = amzDate.slice(0, 8);
   const headers = {
-    "content-length": String(statSync(targetFile).size),
-    "content-type": "font/woff2",
     host: `${r2AccountId}.r2.cloudflarestorage.com`,
-    "x-amz-content-sha256": payloadHash,
+    "x-amz-content-sha256": requestPayloadHash,
     "x-amz-date": amzDate,
   };
+  if (contentLength !== null) headers["content-length"] = String(contentLength);
+  if (contentType) headers["content-type"] = contentType;
   const signedHeaders = Object.keys(headers).sort().join(";");
   const canonicalHeaders = Object.keys(headers)
     .sort()
     .map((key) => `${key}:${headers[key]}\n`)
     .join("");
   const canonicalRequest = [
-    "PUT",
+    method,
     `/${encodeS3Path(objectPath)}`,
     "",
     canonicalHeaders,
     signedHeaders,
-    payloadHash,
+    requestPayloadHash,
   ].join("\n");
   const credentialScope = `${dateStamp}/auto/s3/aws4_request`;
   const stringToSign = [
@@ -925,8 +1003,8 @@ async function uploadAssetWithS3(asset) {
       new TextEncoder().encode(stringToSign),
     ),
   );
-  const response = await fetch(endpoint, {
-    method: "PUT",
+  return fetch(endpoint, {
+    method,
     headers: {
       ...headers,
       Authorization: [
@@ -935,14 +1013,8 @@ async function uploadAssetWithS3(asset) {
         `Signature=${signature}`,
       ].join(", "),
     },
-    body: createReadStream(targetFile),
-    duplex: "half",
+    ...(body ? { body, duplex: "half" } : {}),
   });
-  if (!response.ok) {
-    throw new Error(
-      `S3 PUT ${response.status} ${response.statusText}: ${await response.text()}`,
-    );
-  }
 }
 
 function uploadAssetWithWrangler(asset) {
@@ -1060,6 +1132,21 @@ function assetFilePath(asset) {
   return path.resolve(rootDir, asset.filePath);
 }
 
+function hasUsableAssetFile(asset) {
+  const filePath = assetFilePath(asset);
+  return existsSync(filePath) && statSync(filePath).size > 0;
+}
+
+function incrementCount(counts, key) {
+  counts.set(key, (counts.get(key) ?? 0) + 1);
+}
+
+function sumCounts(counts) {
+  let total = 0;
+  for (const value of counts.values()) total += value;
+  return total;
+}
+
 function recursiveFiles(dir) {
   if (!existsSync(dir)) return [];
   const entries = readdirSync(dir).map((entry) => path.join(dir, entry));
@@ -1099,6 +1186,10 @@ function positiveIntegerEnv(name, fallback) {
 function optionalPositiveIntegerEnv(name) {
   const value = Number.parseInt(process.env[name] ?? "", 10);
   return Number.isFinite(value) && value > 0 ? value : null;
+}
+
+function truthyEnv(name) {
+  return /^(1|true|yes|on)$/i.test(process.env[name]?.trim() ?? "");
 }
 
 function assertCommand(command, commandArgs, message) {

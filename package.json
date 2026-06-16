@@ -10,6 +10,7 @@
     "build:catalog": "node scripts/build-catalog.mjs",
     "build:custom-assets": "node scripts/build-custom-assets.mjs",
     "materialize:custom-assets": "node scripts/build-custom-assets.mjs --materialize",
+    "materialize:custom-assets:force": "node scripts/build-custom-assets.mjs --materialize --force",
     "sync:local-assets": "node scripts/sync-local-assets.mjs",
     "upload:custom-assets": "node scripts/build-custom-assets.mjs --materialize --upload-r2",
     "build:worker": "wrangler deploy --dry-run --outdir .cache/worker",

@@ -27,7 +27,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwNeoXiHei
-    version: latest
+    version: v1.302
     assetFiles:
       - LXGWNeoXiHeiPlus.ttf
 - id: lxgw-neo-zhisong
@@ -42,7 +42,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwNeoZhiSong
-    version: latest
+    version: v1.064
     assetFiles:
       - LXGWNeoZhiSongPlus.ttf
 - id: lxgw-wenkai
@@ -57,7 +57,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwWenKai
-    version: latest
+    version: v1.522
     files:
       - path: LXGWWenKai-Light.ttf
         family: LXGW WenKai
@@ -75,6 +75,36 @@
       - LXGWWenKai-Light.ttf
       - LXGWWenKai-Medium.ttf
       - LXGWWenKai-Regular.ttf
+- id: lxgw-wenkai-mono
+  family: LXGW WenKai Mono
+  language: zh-Hans
+  name: 霞鹜文楷等宽
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenKai
+    version: v1.522
+    files:
+      - path: LXGWWenKaiMono-Light.ttf
+        family: LXGW WenKai Mono
+        weight: 300
+        style: normal
+      - path: LXGWWenKaiMono-Medium.ttf
+        family: LXGW WenKai Mono
+        weight: 500
+        style: normal
+      - path: LXGWWenKaiMono-Regular.ttf
+        family: LXGW WenKai Mono
+        weight: 400
+        style: normal
+    assetFiles:
+      - LXGWWenKaiMono-Light.ttf
+      - LXGWWenKaiMono-Medium.ttf
+      - LXGWWenKaiMono-Regular.ttf
 - id: lxgw-wenkai-gb
   family: LXGW WenKai GB
   language: zh-Hans
@@ -87,7 +117,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwWenkaiGB
-    version: latest
+    version: v1.522
     files:
       - path: LXGWWenKaiGB-Light.ttf
         family: LXGW WenKai GB
@@ -105,6 +135,36 @@
       - LXGWWenKaiGB-Light.ttf
       - LXGWWenKaiGB-Medium.ttf
       - LXGWWenKaiGB-Regular.ttf
+- id: lxgw-wenkai-mono-gb
+  family: LXGW WenKai Mono GB
+  language: zh-Hans
+  name: 霞鹜文楷等宽 GB
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenkaiGB
+    version: v1.522
+    files:
+      - path: LXGWWenKaiMonoGB-Light.ttf
+        family: LXGW WenKai Mono GB
+        weight: 300
+        style: normal
+      - path: LXGWWenKaiMonoGB-Medium.ttf
+        family: LXGW WenKai Mono GB
+        weight: 500
+        style: normal
+      - path: LXGWWenKaiMonoGB-Regular.ttf
+        family: LXGW WenKai Mono GB
+        weight: 400
+        style: normal
+    assetFiles:
+      - LXGWWenKaiMonoGB-Light.ttf
+      - LXGWWenKaiMonoGB-Medium.ttf
+      - LXGWWenKaiMonoGB-Regular.ttf
 - id: lxgw-wenkai-screen
   family: LXGW WenKai Screen
   language: zh-Hans
@@ -117,9 +177,24 @@
     type: webRelease
     owner: lxgw
     repo: LxgwWenKai-Screen
-    version: latest
+    version: v1.522
     assetFiles:
       - LXGWWenKaiScreen.ttf
+- id: lxgw-wenkai-mono-screen
+  family: LXGW WenKai Mono Screen
+  language: zh-Hans
+  name: 霞鹜文楷等宽屏幕阅读版
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenKai-Screen
+    version: v1.522
+    assetFiles:
+      - LXGWWenKaiMonoScreen.ttf
 - id: lxgw-wenkai-tc
   family: LXGW WenKai TC
   language: zh-Hant
@@ -132,7 +207,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwWenkaiTC
-    version: latest
+    version: v1.522
     files:
       - path: LXGWWenKaiTC-Light.ttf
         family: LXGW WenKai TC
@@ -150,6 +225,36 @@
       - LXGWWenKaiTC-Light.ttf
       - LXGWWenKaiTC-Medium.ttf
       - LXGWWenKaiTC-Regular.ttf
+- id: lxgw-wenkai-mono-tc
+  family: LXGW WenKai Mono TC
+  language: zh-Hant
+  name: 霞鶩文楷等宽 TC
+  tone: handwriting
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: lxgw
+    repo: LxgwWenkaiTC
+    version: v1.522
+    files:
+      - path: LXGWWenKaiMonoTC-Light.ttf
+        family: LXGW WenKai Mono TC
+        weight: 300
+        style: normal
+      - path: LXGWWenKaiMonoTC-Medium.ttf
+        family: LXGW WenKai Mono TC
+        weight: 500
+        style: normal
+      - path: LXGWWenKaiMonoTC-Regular.ttf
+        family: LXGW WenKai Mono TC
+        weight: 400
+        style: normal
+    assetFiles:
+      - LXGWWenKaiMonoTC-Light.ttf
+      - LXGWWenKaiMonoTC-Medium.ttf
+      - LXGWWenKaiMonoTC-Regular.ttf
 - id: lxgw-xihei-cl
   family: LXGW XiHei CL
   language: zh-Hant
@@ -162,7 +267,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwXiHei
-    version: latest
+    version: v0.531
     assetFiles:
       - LXGWXiHeiCL.ttf
 - id: lxgw-xihei-mn
@@ -177,7 +282,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwXiHei
-    version: latest
+    version: v0.531
     assetFiles:
       - LXGWXiHeiMN.ttf
 - id: lxgw-zhenkai-gb
@@ -192,7 +297,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwZhenKai
-    version: latest
+    version: v0.825
     assetFiles:
       - LXGWZhenKaiGB-Regular.ttf
 - id: lxgw-zhisong-cl
@@ -207,7 +312,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwZhiSong
-    version: latest
+    version: v0.531
     assetFiles:
       - LXGWZhiSongCL.ttf
 - id: lxgw-zhisong-mn
@@ -222,7 +327,7 @@
     type: webRelease
     owner: lxgw
     repo: LxgwZhiSong
-    version: latest
+    version: v0.531
     assetFiles:
       - LXGWZhiSongMN.ttf
 - id: pengli-wenkai
@@ -237,7 +342,7 @@
     type: webRelease
     owner: lxgw
     repo: Pengli
-    version: latest
+    version: v1.033
     assetFiles:
       - PengliWenKai-Regular.ttf
 - id: xiaolai-font
@@ -252,7 +357,7 @@
     type: webRelease
     owner: lxgw
     repo: kose-font
-    version: latest
+    version: v3.126
     files:
       - path: Xiaolai-Regular.ttf
         family: Xiaolai Font
@@ -272,7 +377,7 @@
     type: webRelease
     owner: lxgw
     repo: yozai-font
-    version: latest
+    version: v0.868
     files:
       - path: Yozai-Light.ttf
         family: Yozai Font
@@ -422,7 +527,7 @@
         style: normal
 # Owner: yzdnn
 - id: ba-ding-shi-wei-ti-16
-  family: Ba Ding Shi Wei Ti 16
+  family: BaDingShiWeiTi 16
   language: zh-Hans
   name: 八丁饰尾体 16
   tone: display
@@ -433,16 +538,16 @@
     type: webRelease
     owner: yzdnn
     repo: BaDingShiWeiTi-16
-    version: latest
+    version: v1.1.0
     files:
       - path: BaDingShiWeiTi-16.ttf
-        family: Ba Ding Shi Wei Ti 16
+        family: BaDingShiWeiTi 16
         weight: 400
         style: normal
     assetFiles:
       - BaDingShiWeiTi-16.ttf
 - id: chang-ban-dian-song-12
-  family: Chang Ban Dian Song 12
+  family: ChangBanDianSong 12
   language: zh-Hans
   name: 长坂点宋 12
   tone: display
@@ -453,16 +558,16 @@
     type: webRelease
     owner: yzdnn
     repo: ChangBanDianSong-12
-    version: latest
+    version: v1.4.3
     files:
       - path: ChangBanDianSong-12.ttf
-        family: Chang Ban Dian Song 12
+        family: ChangBanDianSong 12
         weight: 400
         style: normal
     assetFiles:
       - ChangBanDianSong-12.ttf
 - id: chang-ban-dian-song-16-sc
-  family: Chang Ban Dian Song 16 SC
+  family: ChangBanDianSong 16 SC
   language: zh-Hans
   name: 长坂点宋 16 简
   tone: display
@@ -473,16 +578,16 @@
     type: webRelease
     owner: yzdnn
     repo: ChangBanDianSong-16
-    version: latest
+    version: v1.3.0
     files:
       - path: ChangBanDianSong-16-SC.ttf
-        family: Chang Ban Dian Song 16 SC
+        family: ChangBanDianSong 16 SC
         weight: 400
         style: normal
     assetFiles:
       - ChangBanDianSong-16-SC.ttf
 - id: chang-ban-dian-song-16-tc
-  family: Chang Ban Dian Song 16 TC
+  family: ChangBanDianSong 16 TC
   language: zh-Hant
   name: 長坂點宋 16 繁
   tone: display
@@ -493,16 +598,16 @@
     type: webRelease
     owner: yzdnn
     repo: ChangBanDianSong-16
-    version: latest
+    version: v1.3.0
     files:
       - path: ChangBanDianSong-16-TC.ttf
-        family: Chang Ban Dian Song 16 TC
+        family: ChangBanDianSong 16 TC
         weight: 400
         style: normal
     assetFiles:
       - ChangBanDianSong-16-TC.ttf
 - id: qiu-ye-yuan-ti-16
-  family: Qiu Ye Yuan Ti 16
+  family: QiuYeYuanTi 16
   language: zh-Hans
   name: 秋叶圆体 16
   tone: display
@@ -513,16 +618,16 @@
     type: webRelease
     owner: yzdnn
     repo: QiuYeYuanTi-16
-    version: latest
+    version: v0.0.1
     files:
       - path: QiuYeYuanTi-16.ttf
-        family: Qiu Ye Yuan Ti 16
+        family: QiuYeYuanTi 16
         weight: 400
         style: normal
     assetFiles:
       - QiuYeYuanTi-16.ttf
 - id: ren-ou-fang-song-16
-  family: Ren Ou Fang Song 16
+  family: RenOuFangSong 16
   language: zh-Hans
   name: 人偶仿宋 16
   tone: display
@@ -533,16 +638,36 @@
     type: webRelease
     owner: yzdnn
     repo: RenOuFangSong-16
-    version: latest
+    version: v1.1.1
     files:
       - path: RenOuFangSong-16.ttf
-        family: Ren Ou Fang Song 16
+        family: RenOuFangSong 16
         weight: 400
         style: normal
     assetFiles:
       - RenOuFangSong-16.ttf
+- id: xiu-zhen-xiang-su-ti
+  family: XiuZhenXiangSuTi
+  language: zh-Hans
+  name: 袖珍像素体
+  tone: display
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: yzdnn
+    repo: XiuZhenXiangSuTi
+    version: v1.0.0
+    files:
+      - path: XiuZhenXiangSuTi.ttf
+        family: XiuZhenXiangSuTi
+        weight: 400
+        style: normal
+    assetFiles:
+      - XiuZhenXiangSuTi.ttf
 - id: zheng-ge-dian-hei-16
-  family: Zheng Ge Dian Hei 16
+  family: ZhengGeDianHei 16
   language: zh-Hans
   name: 正格点黑 16
   tone: display
@@ -553,14 +678,173 @@
     type: webRelease
     owner: yzdnn
     repo: ZhengGeDianHei-16
-    version: latest
+    version: v1.0.0
     files:
       - path: ZhengGeDianHei-16.ttf
-        family: Zheng Ge Dian Hei 16
+        family: ZhengGeDianHei 16
         weight: 400
         style: normal
     assetFiles:
       - ZhengGeDianHei-16.ttf
+# Owner: subframe7536
+- id: maple-mono
+  family: Maple Mono
+  language: en
+  tone: mono
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: subframe7536
+    repo: maple-font
+    version: v7.9
+    files:
+      - path: MapleMono-Thin.ttf
+        family: Maple Mono
+        weight: 100
+        style: normal
+      - path: MapleMono-ThinItalic.ttf
+        family: Maple Mono
+        weight: 100
+        style: italic
+      - path: MapleMono-ExtraLight.ttf
+        family: Maple Mono
+        weight: 200
+        style: normal
+      - path: MapleMono-ExtraLightItalic.ttf
+        family: Maple Mono
+        weight: 200
+        style: italic
+      - path: MapleMono-Light.ttf
+        family: Maple Mono
+        weight: 300
+        style: normal
+      - path: MapleMono-LightItalic.ttf
+        family: Maple Mono
+        weight: 300
+        style: italic
+      - path: MapleMono-Regular.ttf
+        family: Maple Mono
+        weight: 400
+        style: normal
+      - path: MapleMono-Italic.ttf
+        family: Maple Mono
+        weight: 400
+        style: italic
+      - path: MapleMono-Medium.ttf
+        family: Maple Mono
+        weight: 500
+        style: normal
+      - path: MapleMono-MediumItalic.ttf
+        family: Maple Mono
+        weight: 500
+        style: italic
+      - path: MapleMono-SemiBold.ttf
+        family: Maple Mono
+        weight: 600
+        style: normal
+      - path: MapleMono-SemiBoldItalic.ttf
+        family: Maple Mono
+        weight: 600
+        style: italic
+      - path: MapleMono-Bold.ttf
+        family: Maple Mono
+        weight: 700
+        style: normal
+      - path: MapleMono-BoldItalic.ttf
+        family: Maple Mono
+        weight: 700
+        style: italic
+      - path: MapleMono-ExtraBold.ttf
+        family: Maple Mono
+        weight: 800
+        style: normal
+      - path: MapleMono-ExtraBoldItalic.ttf
+        family: Maple Mono
+        weight: 800
+        style: italic
+    assetFiles:
+      - MapleMono-TTF.zip
+- id: maple-mono-cn
+  family: Maple Mono CN
+  language: zh-Hans
+  tone: mono
+  license:
+    type: OFL-1.1
+    url: https://openfontlicense.org
+  source:
+    type: webRelease
+    owner: subframe7536
+    repo: maple-font
+    version: v7.9
+    files:
+      - path: MapleMono-CN-Thin.ttf
+        family: Maple Mono CN
+        weight: 100
+        style: normal
+      - path: MapleMono-CN-ThinItalic.ttf
+        family: Maple Mono CN
+        weight: 100
+        style: italic
+      - path: MapleMono-CN-ExtraLight.ttf
+        family: Maple Mono CN
+        weight: 200
+        style: normal
+      - path: MapleMono-CN-ExtraLightItalic.ttf
+        family: Maple Mono CN
+        weight: 200
+        style: italic
+      - path: MapleMono-CN-Light.ttf
+        family: Maple Mono CN
+        weight: 300
+        style: normal
+      - path: MapleMono-CN-LightItalic.ttf
+        family: Maple Mono CN
+        weight: 300
+        style: italic
+      - path: MapleMono-CN-Regular.ttf
+        family: Maple Mono CN
+        weight: 400
+        style: normal
+      - path: MapleMono-CN-Italic.ttf
+        family: Maple Mono CN
+        weight: 400
+        style: italic
+      - path: MapleMono-CN-Medium.ttf
+        family: Maple Mono CN
+        weight: 500
+        style: normal
+      - path: MapleMono-CN-MediumItalic.ttf
+        family: Maple Mono CN
+        weight: 500
+        style: italic
+      - path: MapleMono-CN-SemiBold.ttf
+        family: Maple Mono CN
+        weight: 600
+        style: normal
+      - path: MapleMono-CN-SemiBoldItalic.ttf
+        family: Maple Mono CN
+        weight: 600
+        style: italic
+      - path: MapleMono-CN-Bold.ttf
+        family: Maple Mono CN
+        weight: 700
+        style: normal
+      - path: MapleMono-CN-BoldItalic.ttf
+        family: Maple Mono CN
+        weight: 700
+        style: italic
+      - path: MapleMono-CN-ExtraBold.ttf
+        family: Maple Mono CN
+        weight: 800
+        style: normal
+      - path: MapleMono-CN-ExtraBoldItalic.ttf
+        family: Maple Mono CN
+        weight: 800
+        style: italic
+    assetFiles:
+      - MapleMono-CN.zip
 # Source: webUrl
 - id: fandol-fang
   family: FandolFang

@@ -19,10 +19,21 @@ const catalog = YAML.parse(readFileSync(catalogFile, "utf8"));
 const catalogShards = new Map();
 if (existsSync(shardsFile)) {
   try {
-    for (const [id, shards] of Object.entries(
-      JSON.parse(readFileSync(shardsFile, "utf8")),
-    )) {
-      if (Array.isArray(shards) && shards.length) catalogShards.set(id, shards);
+    const shardData = JSON.parse(readFileSync(shardsFile, "utf8"));
+    const shardVersions = shardData._versions ?? {};
+    for (const [id, shards] of Object.entries(shardData)) {
+      if (id.startsWith("_")) continue;
+      if (Array.isArray(shards) && shards.length) {
+        catalogShards.set(id, {
+          shards,
+          version: shardVersions[id] ? String(shardVersions[id]) : null,
+        });
+      } else if (Array.isArray(shards?.shards) && shards.shards.length) {
+        catalogShards.set(id, {
+          shards: shards.shards,
+          version: shards.version ? String(shards.version) : null,
+        });
+      }
     }
   } catch {
     // First build or invalid shard data: start fresh.
@@ -66,6 +77,8 @@ function normalizeFont(font) {
   const script = scriptForLanguage(language);
   const weights = inferWeights(font);
   const styles = inferStyles(font);
+  const version = String(font.source?.version ?? "1").replace(/^v/, "") || "1";
+  const cachedShards = catalogShards.get(font.id);
   return {
     id: font.id,
     family: font.family,
@@ -74,11 +87,15 @@ function normalizeFont(font) {
     script,
     category: categoryFromTone(font.tone),
     subsets: subsetsForScript(script),
-    shards: catalogShards.get(font.id) ?? [],
+    shards:
+      cachedShards &&
+      (!cachedShards.version || cachedShards.version === version)
+        ? cachedShards.shards
+        : [],
     weights,
     styles,
     axes: [],
-    version: String(font.source?.version ?? "1").replace(/^v/, "") || "1",
+    version,
     lastModified: String(font.lastModified ?? "2026-06-10"),
     dateAdded: String(font.dateAdded ?? "2026-06-10"),
     designers: designersFor(font),
@@ -164,7 +181,14 @@ function inferStyles(font) {
     if (file.style) styles.add(String(file.style));
   }
   if (styles.size === 0) styles.add("normal");
-  return [...styles].sort();
+  return [...styles].sort((left, right) => {
+    if (left === right) return 0;
+    if (left === "normal") return -1;
+    if (right === "normal") return 1;
+    if (left === "italic") return -1;
+    if (right === "italic") return 1;
+    return left.localeCompare(right);
+  });
 }
 
 function upstreamFromSource(source = {}) {
